@@ -1,55 +1,162 @@
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
-
-local function getCurrentTime()
-    local time = os.date("*t")
-    return string.format("%02d:%02d:%02d %02d/%02d/%04d", time.hour, time.min, time.sec, time.day, time.month, time.year)
-end
-
-function SendMessageEMBED(url, embed)
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local data = {
-        ["embeds"] = {
-            {
-                ["title"] = embed.title,
-                ["description"] = embed.description,
-                ["color"] = embed.color or 16711680,
-                ["fields"] = embed.fields or {},
-                ["footer"] = embed.footer or {},
-                ["timestamp"] = embed.timestamp or os.date("!%Y-%m-%dT%H:%M:%SZ")
-            }
-        }
-    }
-    local body = HttpService:JSONEncode(data)
-    local response = request({
-        Url = url,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
-end
+local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local username = player.Name
 local displayName = player.DisplayName
 local gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+local webhookUrl = "https://discord.com/api/webhooks/1473480203123556384/Z5iJQqCiFuZkxYEjQeEn7trBBaYoTjvDeQAF_wVzwNHV_7Qi00PsqilNhslyfwuPzXnm"
 
-local embedWebhook = "https://discord.com/api/webhooks/1473480203123556384/Z5iJQqCiFuZkxYEjQeEn7trBBaYoTjvDeQAF_wVzwNHV_7Qi00PsqilNhslyfwuPzXnm"
-local embed = {
-    ["title"] = "| Executed |",
-    ["description"] = string.format(
-        "Injected by: %s (@%s)\nGame: %s\nTime: %s",
-        displayName,
-        username,
-        gameName,
-        getCurrentTime()
-    ),
-    ["color"] = 16711680,
-    ["footer"] = {
-        ["text"] = ""
-    }
-}
-SendMessageEMBED(embedWebhook, embed)
+local function getCurrentTime()
+	local time = os.date("*t")
+	return string.format("%02d:%02d:%02d %02d/%02d/%04d", time.hour, time.min, time.sec, time.day, time.month, time.year)
+end
+
+local function sendDiscordEmbed(title, description, fields, color)
+	local headers = {
+		["Content-Type"] = "application/json"
+	}
+	local data = {
+		["embeds"] = {
+			{
+				["title"] = title,
+				["description"] = description,
+				["color"] = color or 16711680,
+				["fields"] = fields or {},
+				["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%SZ")
+			}
+		}
+	}
+	local body = HttpService:JSONEncode(data)
+	local success, response = pcall(function()
+		return request({
+			Url = webhookUrl,
+			Method = "POST",
+			Headers = headers,
+			Body = body
+		})
+	end)
+end
+
+local function findTextLabel()
+	local success, result = pcall(function()
+		return player.PlayerGui.MainGui.RightPanel.Inventory.List.Bloodfruit.QuantityImage.QuantityText
+	end)
+	if success and result then
+		return result
+	end
+end
+
+local quantityText = findTextLabel()
+
+if quantityText then
+	local history = {}
+	local maxHistorySize = 36
+	local sampleInterval = 5
+	local lastSampleTime = tick()
+	local lastSampleValue = 0
+	local startTime = tick()
+	local lastSendTime = 0
+	local sendInterval = 60
+	
+	local function getNumericValue()
+		local text = quantityText.Text
+		local cleanText = text:gsub(",", "")
+		return tonumber(cleanText) or 0
+	end
+	
+	local function sendRateUpdate(currentValue, rate5s, rateOverall, timeElapsed)
+		local fields = {
+			{
+				name = "Current Amount",
+				value = string.format("`%d`", currentValue),
+				inline = true
+			},
+			{
+				name = "Last 5 Seconds",
+				value = string.format("`%+.2f/hr`", rate5s),
+				inline = true
+			},
+			{
+				name = "Overall Average",
+				value = string.format("`%+.2f/hr`", rateOverall),
+				inline = true
+			},
+			{
+				name = "Time Tracking",
+				value = string.format("`%d minutes`", math.floor(timeElapsed / 60)),
+				inline = true
+			}
+		}
+		
+		local description = string.format(
+			"**Player:** %s (@%s)\n**Game:** %s\n**Time:** %s",
+			displayName,
+			username,
+			gameName,
+			getCurrentTime()
+		)
+		
+		local color = 3066993
+		if rate5s > rateOverall then
+			color = 15844367
+		end
+		
+		sendDiscordEmbed("🍇 Bloodfruit Tracker Update", description, fields, color)
+	end
+	
+	sendDiscordEmbed("📊 Bloodfruit Tracker Started", string.format(
+		"**Player:** %s (@%s)\n**Game:** %s\n**Time:** %s\n\nTracking bloodfruit rates...",
+		displayName, username, gameName, getCurrentTime()
+	), {}, 3066993)
+	
+	task.wait(1)
+	lastSampleValue = getNumericValue()
+	lastSampleTime = tick()
+	
+	local function trackRates()
+		local currentValue = getNumericValue()
+		local currentTime = tick()
+		
+		if currentTime - lastSampleTime >= sampleInterval then
+			local valueChange = currentValue - lastSampleValue
+			local timeChange = currentTime - lastSampleTime
+			
+			table.insert(history, {
+				value = currentValue,
+				change = valueChange,
+				time = currentTime
+			})
+			
+			while #history > maxHistorySize do
+				table.remove(history, 1)
+			end
+			
+			local rate5s = 0
+			local rateOverall = 0
+			
+			if timeChange > 0 then
+				rate5s = (valueChange / timeChange) * 3600
+			end
+			
+			if #history > 0 then
+				local totalChange = currentValue - history[1].value
+				local totalTime = currentTime - history[1].time
+				rateOverall = (totalChange / totalTime) * 3600
+			end
+			
+			if currentTime - lastSendTime >= sendInterval then
+				sendRateUpdate(currentValue, rate5s, rateOverall, currentTime - startTime)
+				lastSendTime = currentTime
+			end
+			
+			lastSampleValue = currentValue
+			lastSampleTime = currentTime
+		end
+	end
+	
+	quantityText:GetPropertyChangedSignal("Text"):Connect(trackRates)
+	RunService.Heartbeat:Connect(trackRates)
+end
