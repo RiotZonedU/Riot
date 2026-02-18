@@ -1,0 +1,55 @@
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local function getCurrentTime()
+    local time = os.date("*t")
+    return string.format("%02d:%02d:%02d %02d/%02d/%04d", time.hour, time.min, time.sec, time.day, time.month, time.year)
+end
+
+function SendMessageEMBED(url, embed)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = embed.title,
+                ["description"] = embed.description,
+                ["color"] = embed.color or 16711680,
+                ["fields"] = embed.fields or {},
+                ["footer"] = embed.footer or {},
+                ["timestamp"] = embed.timestamp or os.date("!%Y-%m-%dT%H:%M:%SZ")
+            }
+        }
+    }
+    local body = HttpService:JSONEncode(data)
+    local response = request({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
+
+local player = Players.LocalPlayer
+local username = player.Name
+local displayName = player.DisplayName
+local gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+
+local embedWebhook = "https://discord.com/api/webhooks/1473480203123556384/Z5iJQqCiFuZkxYEjQeEn7trBBaYoTjvDeQAF_wVzwNHV_7Qi00PsqilNhslyfwuPzXnm"
+local embed = {
+    ["title"] = "| Executed |",
+    ["description"] = string.format(
+        "Injected by: %s (@%s)\nGame: %s\nTime: %s",
+        displayName,
+        username,
+        gameName,
+        getCurrentTime()
+    ),
+    ["color"] = 16711680,
+    ["footer"] = {
+        ["text"] = ""
+    }
+}
+SendMessageEMBED(embedWebhook, embed)
