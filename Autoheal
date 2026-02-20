@@ -3,7 +3,7 @@ local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 
 local TRIGGER_HEALTH = 50
-local BURST_FPS = 60
+local BURST_FPS = 25
 local BURST_DELAY = 1 / BURST_FPS
 local MAX_HEALTH = 100
 local BURST_COUNT = 2
@@ -11,7 +11,7 @@ local BURST_COUNT = 2
 local isRunning = false
 local accumulator = 0
 local burstCounter = 0
-local totalPacketsPerBurst = 0
+local packetsPerBurst = 0
 local currentBurst = 0
 local wasBelowThreshold = false
 
@@ -34,8 +34,8 @@ end
 local function createPacketsBasedOnHealth(health)
     local healthLost = MAX_HEALTH - health
     local packetsNeeded = math.floor(healthLost / 3)
-    local safetyPacket = 1
-    local totalPackets = math.max(packetsNeeded + safetyPacket, 1)
+    local extraPacket = 1
+    local totalPackets = math.max(packetsNeeded + extraPacket, 1)
     
     local layoutOrder = getLayoutOrder()
     
@@ -44,7 +44,7 @@ local function createPacketsBasedOnHealth(health)
         packetString = packetString .. "\000." .. string.char(layoutOrder) .. "\000"
     end
     
-    return {buffer.fromstring(packetString)}, totalPackets
+    return {buffer.fromstring(packetString)}
 end
 
 local function fixedUpdate(deltaTime)
@@ -61,7 +61,6 @@ local function fixedUpdate(deltaTime)
             if humanoid then
                 local health = humanoid.Health
                 
-                -- Only fire if health is below trigger
                 if health >= TRIGGER_HEALTH then
                     isRunning = false
                     burstCounter = 0
@@ -70,24 +69,17 @@ local function fixedUpdate(deltaTime)
                     return
                 end
                 
-                local args, _ = createPacketsBasedOnHealth(health)
+                local args = createPacketsBasedOnHealth(health)
                 local remote = game:GetService("ReplicatedStorage"):WaitForChild("ByteNetReliable")
                 remote:FireServer(unpack(args))
                 
                 burstCounter = burstCounter + 1
                 accumulator = accumulator - BURST_DELAY
                 
-                -- Check if current burst is complete
-                if burstCounter >= totalPacketsPerBurst then
-                    currentBurst = currentBurst + 1
+                if burstCounter >= BURST_COUNT then
+                    isRunning = false
                     burstCounter = 0
-                    accumulator = 0
-                    
-                    -- Check if all bursts are complete
-                    if currentBurst >= BURST_COUNT then
-                        isRunning = false
-                        currentBurst = 0
-                    end
+                    currentBurst = 0
                 end
             else
                 isRunning = false
@@ -115,14 +107,8 @@ local function checkHealth()
     
     local health = humanoid.Health
     
-    -- Trigger when health goes below threshold
     if health < TRIGGER_HEALTH then
         if not wasBelowThreshold and not isRunning then
-            local healthLost = MAX_HEALTH - health
-            local packetsNeeded = math.floor(healthLost / 3)
-            local safetyPacket = 1
-            totalPacketsPerBurst = math.max(packetsNeeded + safetyPacket, 1)
-            
             isRunning = true
             burstCounter = 0
             accumulator = 0
@@ -135,7 +121,6 @@ local function checkHealth()
 end
 
 local function toggleSpammer()
-    -- Only allow manual trigger if health is below threshold
     local player = Players.LocalPlayer
     local character = player.Character
     
@@ -147,22 +132,16 @@ local function toggleSpammer()
     local health = humanoid.Health
     
     if health >= TRIGGER_HEALTH then
-        return -- Don't trigger if health is above threshold
+        return
     end
     
     if not isRunning then
-        local healthLost = MAX_HEALTH - health
-        local packetsNeeded = math.floor(healthLost / 3)
-        local safetyPacket = 1
-        totalPacketsPerBurst = math.max(packetsNeeded + safetyPacket, 1)
-        
         isRunning = true
         burstCounter = 0
         accumulator = 0
         currentBurst = 0
         wasBelowThreshold = true
     else
-        -- If already running, stop it
         isRunning = false
         burstCounter = 0
         accumulator = 0
