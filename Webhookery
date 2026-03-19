@@ -42,7 +42,7 @@ end
 
 local function findTextLabel()
 	local success, result = pcall(function()
-		return player.PlayerGui.MainGui.RightPanel.Inventory.List.Bloodfruit.QuantityImage.QuantityText
+		return player.PlayerGui.MainGui.RightPanel.Inventory.List.Cloudberry.QuantityImage.QuantityText
 	end)
 	if success and result then
 		return result
