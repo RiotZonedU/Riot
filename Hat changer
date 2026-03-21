@@ -3,7 +3,15 @@ local character = nil
 local equippedHats = {}
 local hats = {
     -- GODS
-    {name = "Astral God", textureId = "rbxassetid://162384608", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {
+        name = "Astral God",
+        textureId = "rbxassetid://162384608",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
     {
         name = "Bunny God",
         mainPart = {
@@ -23,115 +31,615 @@ local hats = {
             weldC1 = CFrame.new(0, 0.6, 0)
         }
     },
-    {name = "Easter God", textureId = "http://www.roblox.com/asset/?id=383602151", meshId = "http://www.roblox.com/asset/?id=383602068", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Fire God1", textureId = "http://www.roblox.com/asset/?id=31100020", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Frozen God1", textureId = "http://www.roblox.com/asset/?id=48544900", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Golden God", textureId = "http://www.roblox.com/asset/?id=139138503", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Golder God1", textureId = "http://www.roblox.com/asset/?id=382466694", meshId = "http://www.roblox.com/asset/?id=382466541", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-    {name = "Goldest God1", textureId = "rbxassetid://1578441237", meshId = "rbxassetid://1578505955", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-{name="Golden Lucky God",
-    mainPart={
-        meshId="http://www.roblox.com/asset/?id=138923368",
-        textureId="rbxassetid://132072394897632",
-        scale=Vector3.new(1.045,1.045,1.045),
-        offset=Vector3.new(0,0,0.4),
-        weldC0=CFrame.new(0,0.6,-0.200272),
-        weldC1=CFrame.new(0,0.6,-0.000272)
+    {
+        name = "Easter God",
+        textureId = "http://www.roblox.com/asset/?id=383602151",
+        meshId = "http://www.roblox.com/asset/?id=383602068",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
     },
-    cloverPart=true
-},
-{name="Lucky God",
-    mainPart={
-        meshId="http://www.roblox.com/asset/?id=138923368",
-        textureId="rbxassetid://132072394897632",
-        scale=Vector3.new(1.045,1.045,1.045),
-        offset=Vector3.new(0,0,0.4),
-        weldC0=CFrame.new(0,0.6,-0.200272),
-        weldC1=CFrame.new(0,0.6,-0.000272)
+    {
+        name = "Fire God1",
+        textureId = "http://www.roblox.com/asset/?id=31100020",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.2),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
     },
-    cloverPart=true
-},
-    {name = "Key God1", textureId = "rbxassetid://1625335854", meshId = "rbxassetid://1578505955", scale = Vector3.new(1.035, 1.05, 1.05), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-    {name = "Light God1", textureId = "http://www.roblox.com/asset/?id=21057378", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.5, -0.000272)},
-    {name = "Obsidian Hood", textureId = "rbxassetid://1180375333", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0.2), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-    {name = "Poisoned God1", textureId = "http://www.roblox.com/asset/?id=64444605", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "ROBUX GOD", textureId = "rbxassetid://383529162", meshId = "rbxassetid://382472519", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.125), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-    {name = "Seaside God", textureId = "http://www.roblox.com/asset/?id=90973687728029", meshId = "rbxassetid://133035874966166", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)},
-    {name = "Shadow God1", textureId = "rbxassetid://17384499368", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Silver God", textureId = "http://www.roblox.com/asset/?id=16055693843", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Skyforged God", textureId = "rbxassetid://16064680730", meshId = "http://www.roblox.com/asset/?id=162384581", scale = Vector3.new(1.02, 1.02, 1.02), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.68, -0.180298)},
-    {name = "Spooky God", textureId = "http://www.roblox.com/asset/?id=280128358", meshId = "http://www.roblox.com/asset/?id=63246126", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
-    {name = "Valentines God", textureId = "http://www.roblox.com/asset/?id=90523959979045", meshId = "rbxassetid://115211178191968", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)},
+    {
+        name = "Frozen God1",
+        textureId = "http://www.roblox.com/asset/?id=48544900",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.2),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "Golden God",
+        textureId = "http://www.roblox.com/asset/?id=139138503",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "Golder God1",
+        textureId = "http://www.roblox.com/asset/?id=382466694",
+        meshId = "http://www.roblox.com/asset/?id=382466541",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.15),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Goldest God1",
+        textureId = "rbxassetid://1578441237",
+        meshId = "rbxassetid://1578505955",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.15),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Golden Lucky God",
+        mainPart = {
+            meshId = "http://www.roblox.com/asset/?id=138923368",
+            textureId = "rbxassetid://132072394897632",
+            scale = Vector3.new(1.045, 1.045, 1.045),
+            offset = Vector3.new(0, 0, 0.4),
+            weldC0 = CFrame.new(0, 0.6, -0.200272),
+            weldC1 = CFrame.new(0, 0.6, -0.000272)
+        },
+        cloverPart = true
+    },
+    {
+        name = "Lucky God",
+        mainPart = {
+            meshId = "http://www.roblox.com/asset/?id=138923368",
+            textureId = "rbxassetid://132072394897632",
+            scale = Vector3.new(1.045, 1.045, 1.045),
+            offset = Vector3.new(0, 0, 0.4),
+            weldC0 = CFrame.new(0, 0.6, -0.200272),
+            weldC1 = CFrame.new(0, 0.6, -0.000272)
+        },
+        cloverPart = true
+    },
+    {
+        name = "Key God1",
+        textureId = "rbxassetid://1625335854",
+        meshId = "rbxassetid://1578505955",
+        scale = Vector3.new(1.035, 1.05, 1.05),
+        offset = Vector3.new(0, 0, -0.15),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Light God1",
+        textureId = "http://www.roblox.com/asset/?id=21057378",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
+        scale = Vector3.new(1.05, 1.05, 1.05),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.5, -0.000272)
+    },
+    {
+        name = "Obsidian Hood",
+        textureId = "rbxassetid://1180375333",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0.2),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Poisoned God1",
+        textureId = "http://www.roblox.com/asset/?id=64444605",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.2),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "ROBUX GOD",
+        textureId = "rbxassetid://383529162",
+        meshId = "rbxassetid://382472519",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.125),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Seaside God",
+        textureId = "http://www.roblox.com/asset/?id=90973687728029",
+        meshId = "rbxassetid://133035874966166",
+        scale = Vector3.new(1.05, 1.05, 1.05),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+    },
+    {
+        name = "Shadow God1",
+        textureId = "rbxassetid://17384499368",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "Silver God",
+        textureId = "http://www.roblox.com/asset/?id=16055693843",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "Skyforged God",
+        textureId = "rbxassetid://16064680730",
+        meshId = "http://www.roblox.com/asset/?id=162384581",
+        scale = Vector3.new(1.02, 1.02, 1.02),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.68, -0.180298)
+    },
+    {
+        name = "Spooky God",
+        textureId = "http://www.roblox.com/asset/?id=280128358",
+        meshId = "http://www.roblox.com/asset/?id=63246126",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
+    {
+        name = "Valentines God",
+        textureId = "http://www.roblox.com/asset/?id=90523959979045",
+        meshId = "rbxassetid://115211178191968",
+        scale = Vector3.new(1.05, 1.05, 1.05),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+    },
 
     -- DOMINUS
-    {name = "Dominus Rex1", textureId = "http://www.roblox.com/asset/?id=250577405", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {
+        name = "Dominus Rex1",
+        textureId = "http://www.roblox.com/asset/?id=250577405",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, -0.15),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
 
     -- HORNS
-{
-    name = "Black Horns",
-    mainPart = {
-        meshId = "http://www.roblox.com/asset/?id=215680403",
-        textureId = "rbxassetid://5578710859",
-        scale = Vector3.new(1, 1, 1),
-        offset = Vector3.new(0, 0.15, 0),
-        weldC0 = CFrame.new(0, 0.6, 0),
-        weldC1 = CFrame.new(0, -0.7, 0),
-        fire = {color = Color3.new(1, 1, 1), secondaryColor = Color3.new(0, 0, 0), heat = 8, size = 3}
+    {
+        name = "Black Horns",
+        mainPart = {
+            meshId = "http://www.roblox.com/asset/?id=215680403",
+            textureId = "rbxassetid://5578710859",
+            scale = Vector3.new(1, 1, 1),
+            offset = Vector3.new(0, 0.15, 0),
+            weldC0 = CFrame.new(0, 0.6, 0),
+            weldC1 = CFrame.new(0, -0.7, 0),
+            fire = {
+                color = Color3.new(1, 1, 1),
+                secondaryColor = Color3.new(0, 0, 0),
+                heat = 8,
+                size = 3
+            }
+        },
+        secondaryPart = {
+            meshId = "http://www.roblox.com/asset/?id=1029012",
+            textureId = "e",
+            scale = Vector3.new(1.1, 1.1, 1.1),
+            offset = Vector3.new(0, 0, 0),
+            weldC0 = CFrame.new(0, -0.7, 0) * CFrame.Angles(0, 0, 0),
+            weldC1 = CFrame.new(0, 0, 0),
+            vertexColor = Vector3.new(0.18, 0.18, 0.18)
+        }
     },
-    secondaryPart = {
-        meshId = "http://www.roblox.com/asset/?id=1029012",
-        textureId = "e",
-        scale = Vector3.new(1.1, 1.1, 1.1),
+    {
+        name = "Black Iron Horns",
+        textureId = "rbxassetid://627529830",
+        meshId = "rbxassetid://627540549",
+        scale = Vector3.new(1.7, 1.7, 1.7),
         offset = Vector3.new(0, 0, 0),
-        weldC0 = CFrame.new(0, -0.7, 0) * CFrame.Angles(0, 0, 0),
-        weldC1 = CFrame.new(0, 0, 0),
-        vertexColor = Vector3.new(0.18, 0.18, 0.18)
-    }
-},
-    {name = "Black Iron Horns", textureId = "rbxassetid://627529830", meshId = "rbxassetid://627540549", scale = Vector3.new(1.7, 1.7, 1.7), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.26, 0)},
-    {name = "Blood Horns", textureId = "http://www.roblox.com/asset/?id=11935615509", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.92549, 0, 0), secondaryColor = Color3.new(0.545098, 0, 0), heat = 8, size = 3}},
-    {name = "Dark Horns", textureId = "http://www.roblox.com/asset/?id=71494779", meshId = "http://www.roblox.com/asset/?id=71494804", scale = Vector3.new(1.08, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, 0.024728)},
-    {name = "Death Horns", textureId = "http://www.roblox.com/asset/?id=17799303408", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 0, 0), secondaryColor = Color3.new(0.513726, 0, 0), heat = 8, size = 3}},
-    {name = "Disco Horns", textureId = "rbxassetid://129609357728517", meshId = "rbxassetid://90900525707600", scale = Vector3.new(1, 1, 1.000479), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(-0.000063, -0.723119, 0.000565, -1, 0, 0, 0, 1, 0, 0, 0, -1), fire = {color = Color3.new(0.590603, 0.778813, 0.458109), secondaryColor = Color3.new(0.839216, 0.956863, 0.988235), heat = 8, size = 3}},
-    {name = "FrozenHorns1", textureId = "rbxassetid://658646189", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.20392, 0.80784, 0.92549), secondaryColor = Color3.new(0.00784, 0.25098, 0.5451), heat = 8, size = 3}},
-    {name = "Love Horns", textureId = "http://www.roblox.com/asset/?id=16270370472", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.85098, 0.098039, 1), secondaryColor = Color3.new(0.243137, 0, 0.388235), heat = 8, size = 3}},
-    {name = "Lucky Horns", textureId = "rbxassetid://787064803", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 1, 0), secondaryColor = Color3.new(0.545098, 0, 0), heat = 8, size = 3}},
-    {name = "PoisonHorns1", textureId = "rbxassetid://1744057070", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.666667, 0.333333, 1), secondaryColor = Color3.new(0.007843, 0.25098, 0.545098), heat = 8, size = 3}},
-    {name = "Skyforged Horns", textureId = "http://www.roblox.com/asset/?id=104058866743144", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.054902, 0.062745, 0.282353), secondaryColor = Color3.new(0.054902, 0.066667, 0.27451), heat = 8, size = 3}},
-    {name = "The Flaming Horns", textureId = "http://www.roblox.com/asset/?id=215676264", meshId = "rbxassetid://215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.92549, 0.5451, 0.27451), secondaryColor = Color3.new(0.243137, 0, 0.388235), heat = 8, size = 3}},
-    {name = "White Horns", textureId = "rbxassetid://94261725381944", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 0, 0), secondaryColor = Color3.new(1, 1, 1), heat = 8, size = 3}},
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.26, 0)
+    },
+    {
+        name = "Blood Horns",
+        textureId = "http://www.roblox.com/asset/?id=11935615509",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.92549, 0, 0),
+            secondaryColor = Color3.new(0.545098, 0, 0),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "Dark Horns",
+        textureId = "http://www.roblox.com/asset/?id=71494779",
+        meshId = "http://www.roblox.com/asset/?id=71494804",
+        scale = Vector3.new(1.08, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, 0.024728)
+    },
+    {
+        name = "Death Horns",
+        textureId = "http://www.roblox.com/asset/?id=17799303408",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0, 0, 0),
+            secondaryColor = Color3.new(0.513726, 0, 0),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "Disco Horns",
+        textureId = "rbxassetid://129609357728517",
+        meshId = "rbxassetid://90900525707600",
+        scale = Vector3.new(1, 1, 1.000479),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(-0.000063, -0.723119, 0.000565, -1, 0, 0, 0, 1, 0, 0, 0, -1),
+        fire = {
+            color = Color3.new(0.590603, 0.778813, 0.458109),
+            secondaryColor = Color3.new(0.839216, 0.956863, 0.988235),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "FrozenHorns1",
+        textureId = "rbxassetid://658646189",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.20392, 0.80784, 0.92549),
+            secondaryColor = Color3.new(0.00784, 0.25098, 0.5451),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "Love Horns",
+        textureId = "http://www.roblox.com/asset/?id=16270370472",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.85098, 0.098039, 1),
+            secondaryColor = Color3.new(0.243137, 0, 0.388235),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "Lucky Horns",
+        textureId = "rbxassetid://787064803",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0, 1, 0),
+            secondaryColor = Color3.new(0.545098, 0, 0),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "PoisonHorns1",
+        textureId = "rbxassetid://1744057070",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.666667, 0.333333, 1),
+            secondaryColor = Color3.new(0.007843, 0.25098, 0.545098),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "Skyforged Horns",
+        textureId = "http://www.roblox.com/asset/?id=104058866743144",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.054902, 0.062745, 0.282353),
+            secondaryColor = Color3.new(0.054902, 0.066667, 0.27451),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "The Flaming Horns",
+        textureId = "http://www.roblox.com/asset/?id=215676264",
+        meshId = "rbxassetid://215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.92549, 0.5451, 0.27451),
+            secondaryColor = Color3.new(0.243137, 0, 0.388235),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "White Horns",
+        textureId = "rbxassetid://94261725381944",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0, 0, 0),
+            secondaryColor = Color3.new(1, 1, 1),
+            heat = 8,
+            size = 3
+        }
+    },
 
     -- CLASSES/FEDORAS
-    {name = "High Class", textureId = "http://www.roblox.com/asset/?id=1285232", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "High High Class", textureId = "rbxassetid://1016192367", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Higher Class1", textureId = "rbxassetid://612910258", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Luckiest Class", textureId = "rbxassetid://109500384", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Patriotic Class", textureId = "rbxassetid://125815954877269", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Pink High Class", textureId = "http://www.roblox.com/asset/?id=343250808", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Red Fedora", textureId = "http://www.roblox.com/asset/?id=72081397", meshId = "http://www.roblox.com/asset/?id=72081410", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Secret Class", textureId = "rbxassetid://146094369", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Sky Blue Fedora", textureId = "http://www.roblox.com/asset/?id=119886492", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Sky Fedora", textureId = "rbxassetid://493450535", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Skyforged Class", textureId = "http://www.roblox.com/asset/?id=16088501951", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Spooky Class", textureId = "rbxassetid://119897975890773", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {
+        name = "High Class",
+        textureId = "http://www.roblox.com/asset/?id=1285232",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "High High Class",
+        textureId = "rbxassetid://1016192367",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Higher Class1",
+        textureId = "rbxassetid://612910258",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Luckiest Class",
+        textureId = "rbxassetid://109500384",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Patriotic Class",
+        textureId = "rbxassetid://125815954877269",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Pink High Class",
+        textureId = "http://www.roblox.com/asset/?id=343250808",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Red Fedora",
+        textureId = "http://www.roblox.com/asset/?id=72081397",
+        meshId = "http://www.roblox.com/asset/?id=72081410",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Secret Class",
+        textureId = "rbxassetid://146094369",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Sky Blue Fedora",
+        textureId = "http://www.roblox.com/asset/?id=119886492",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Sky Fedora",
+        textureId = "rbxassetid://493450535",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Skyforged Class",
+        textureId = "http://www.roblox.com/asset/?id=16088501951",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Spooky Class",
+        textureId = "rbxassetid://119897975890773",
+        meshId = "http://www.roblox.com/asset/?id=1285237",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
 
     -- VALKYRIES
-    {name = "Blackvalk1", textureId = "rbxassetid://124896442", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
-    {name = "God Valkyrie", textureId = "rbxassetid://1456755237", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
-    {name = "Green Valk", textureId = "rbxassetid://2823861788", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
-    {name = "JJ hat", textureId = "rbxassetid://1402325409", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
-    {name = "STV1", textureId = "rbxassetid://1180408992", meshId = "rbxassetid://1116050388", scale = Vector3.new(2, 2, 2), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
-    {name = "Valkyrie1", textureId = "http://www.roblox.com/asset/?id=1365693", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {
+        name = "Blackvalk1",
+        textureId = "rbxassetid://124896442",
+        meshId = "http://www.roblox.com/asset/?id=1365696",
+        scale = Vector3.new(1, 1, 1.15),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
+    {
+        name = "God Valkyrie",
+        textureId = "rbxassetid://1456755237",
+        meshId = "http://www.roblox.com/asset/?id=1365696",
+        scale = Vector3.new(1, 1, 1.15),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
+    {
+        name = "Green Valk",
+        textureId = "rbxassetid://2823861788",
+        meshId = "http://www.roblox.com/asset/?id=1365696",
+        scale = Vector3.new(1, 1, 1.15),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
+    {
+        name = "JJ hat",
+        textureId = "rbxassetid://1402325409",
+        meshId = "http://www.roblox.com/asset/?id=1365696",
+        scale = Vector3.new(1, 1, 1.15),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
+    {
+        name = "STV1",
+        textureId = "rbxassetid://1180408992",
+        meshId = "rbxassetid://1116050388",
+        scale = Vector3.new(2, 2, 2),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
+    {
+        name = "Valkyrie1",
+        textureId = "http://www.roblox.com/asset/?id=1365693",
+        meshId = "http://www.roblox.com/asset/?id=1365696",
+        scale = Vector3.new(1, 1, 1.15),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)
+    },
 
     -- TENTACLES
-    {name = "Mr Tentacles", textureId = "http://www.roblox.com/asset/?id=11144797", meshId = "http://www.roblox.com/asset/?id=11144802", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.7, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
-    {name = "Tentacles1", textureId = "http://www.roblox.com/asset/?id=135437303", meshId = "http://www.roblox.com/asset/?id=11144802", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.7, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {
+        name = "Mr Tentacles",
+        textureId = "http://www.roblox.com/asset/?id=11144797",
+        meshId = "http://www.roblox.com/asset/?id=11144802",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0.7, 0),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
+    {
+        name = "Tentacles1",
+        textureId = "http://www.roblox.com/asset/?id=135437303",
+        meshId = "http://www.roblox.com/asset/?id=11144802",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0.7, 0),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, 0.6, 0)
+    },
 
     -- CROWNS/MISC
-    {name = "Golden Star Crown", textureId = "http://www.roblox.com/asset/?id=439919703", meshId = "http://www.roblox.com/asset/?id=439915812", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.075, -0.000272)},
-    {name = "Headless Head", textureId = "http://www.roblox.com/asset/?id=6483249848", meshId = "rbxassetid://6483242269", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.8, 0), weldC1 = CFrame.new(0.007884, 0.229053, 0.017471, 1, 0, 0, 0, 0.999997, -0.002503, 0, 0.002503, 0.999997), part0 = "UpperTorso"},
-    {name = "Lord of Federation", textureId = "http://www.roblox.com/asset/?id=88878187", meshId = "http://www.roblox.com/asset/?id=88878197", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.3, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
-    {name = "Void Crown", textureId = "http://www.roblox.com/asset/?id=1125479", meshId = "http://www.roblox.com/asset/?id=1125478", scale = Vector3.new(0.65, 0.65, 0.65), offset = Vector3.new(0, -0.22, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {
+        name = "Golden Star Crown",
+        textureId = "http://www.roblox.com/asset/?id=439919703",
+        meshId = "http://www.roblox.com/asset/?id=439915812",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.075, -0.000272)
+    },
+    {
+        name = "Headless Head",
+        textureId = "http://www.roblox.com/asset/?id=6483249848",
+        meshId = "rbxassetid://6483242269",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.8, 0),
+        weldC1 = CFrame.new(0.007884, 0.229053, 0.017471, 1, 0, 0, 0, 0.999997, -0.002503, 0, 0.002503, 0.999997),
+        part0 = "UpperTorso"
+    },
+    {
+        name = "Lord of Federation",
+        textureId = "http://www.roblox.com/asset/?id=88878187",
+        meshId = "http://www.roblox.com/asset/?id=88878197",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0.3, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    },
+    {
+        name = "Void Crown",
+        textureId = "http://www.roblox.com/asset/?id=1125479",
+        meshId = "http://www.roblox.com/asset/?id=1125478",
+        scale = Vector3.new(0.65, 0.65, 0.65),
+        offset = Vector3.new(0, -0.22, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0, 0.049728)
+    }
 }
 local hatOrder = {}
 
