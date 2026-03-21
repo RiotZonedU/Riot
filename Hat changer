@@ -1,0 +1,1157 @@
+local player = game.Players.LocalPlayer
+local character = nil
+local equippedHats = {}
+local hats = {
+    -- GODS
+    {name = "Astral God", textureId = "rbxassetid://162384608", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {
+        name = "Bunny God",
+        mainPart = {
+            textureId = "http://www.roblox.com/asset/?id=82102413754437",
+            meshId = "http://www.roblox.com/asset/?id=21057410",
+            scale = Vector3.new(1.05, 1.05, 1.05),
+            offset = Vector3.new(0, 0, 0),
+            weldC0 = CFrame.new(0, 0.5, 0),
+            weldC1 = CFrame.new(0, 0.6, 0)
+        },
+        secondaryPart = {
+            textureId = "http://www.roblox.com/asset/?id=119675075271344",
+            meshId = "http://www.roblox.com/asset/?id=227430350",
+            scale = Vector3.new(2.5, 2.5, 2.5),
+            offset = Vector3.new(0, 1, -0.2),
+            weldC0 = CFrame.new(0, 0.5, 0),
+            weldC1 = CFrame.new(0, 0.6, 0)
+        }
+    },
+    {name = "Easter God", textureId = "http://www.roblox.com/asset/?id=383602151", meshId = "http://www.roblox.com/asset/?id=383602068", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Fire God1", textureId = "http://www.roblox.com/asset/?id=31100020", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Frozen God1", textureId = "http://www.roblox.com/asset/?id=48544900", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Golden God", textureId = "http://www.roblox.com/asset/?id=139138503", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Golder God1", textureId = "http://www.roblox.com/asset/?id=382466694", meshId = "http://www.roblox.com/asset/?id=382466541", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {name = "Goldest God1", textureId = "rbxassetid://1578441237", meshId = "rbxassetid://1578505955", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+{name="Golden Lucky God",
+    mainPart={
+        meshId="http://www.roblox.com/asset/?id=138923368",
+        textureId="rbxassetid://132072394897632",
+        scale=Vector3.new(1.045,1.045,1.045),
+        offset=Vector3.new(0,0,0.4),
+        weldC0=CFrame.new(0,0.6,-0.200272),
+        weldC1=CFrame.new(0,0.6,-0.000272)
+    },
+    cloverPart=true
+},
+{name="Lucky God",
+    mainPart={
+        meshId="http://www.roblox.com/asset/?id=138923368",
+        textureId="rbxassetid://132072394897632",
+        scale=Vector3.new(1.045,1.045,1.045),
+        offset=Vector3.new(0,0,0.4),
+        weldC0=CFrame.new(0,0.6,-0.200272),
+        weldC1=CFrame.new(0,0.6,-0.000272)
+    },
+    cloverPart=true
+},
+    {name = "Key God1", textureId = "rbxassetid://1625335854", meshId = "rbxassetid://1578505955", scale = Vector3.new(1.035, 1.05, 1.05), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {name = "Light God1", textureId = "http://www.roblox.com/asset/?id=21057378", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.5, -0.000272)},
+    {name = "Obsidian Hood", textureId = "rbxassetid://1180375333", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0.2), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {name = "Poisoned God1", textureId = "http://www.roblox.com/asset/?id=64444605", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.2), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "ROBUX GOD", textureId = "rbxassetid://383529162", meshId = "rbxassetid://382472519", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.125), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {name = "Seaside God", textureId = "http://www.roblox.com/asset/?id=90973687728029", meshId = "rbxassetid://133035874966166", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)},
+    {name = "Shadow God1", textureId = "rbxassetid://17384499368", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Silver God", textureId = "http://www.roblox.com/asset/?id=16055693843", meshId = "http://www.roblox.com/asset/?id=138923368", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Skyforged God", textureId = "rbxassetid://16064680730", meshId = "http://www.roblox.com/asset/?id=162384581", scale = Vector3.new(1.02, 1.02, 1.02), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.68, -0.180298)},
+    {name = "Spooky God", textureId = "http://www.roblox.com/asset/?id=280128358", meshId = "http://www.roblox.com/asset/?id=63246126", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+    {name = "Valentines God", textureId = "http://www.roblox.com/asset/?id=90523959979045", meshId = "rbxassetid://115211178191968", scale = Vector3.new(1.05, 1.05, 1.05), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)},
+
+    -- DOMINUS
+    {name = "Dominus Rex1", textureId = "http://www.roblox.com/asset/?id=250577405", meshId = "http://www.roblox.com/asset/?id=21057410", scale = Vector3.new(1.045, 1.045, 1.045), offset = Vector3.new(0, 0, -0.15), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0.6, -0.200272)},
+
+    -- HORNS
+{
+    name = "Black Horns",
+    mainPart = {
+        meshId = "http://www.roblox.com/asset/?id=215680403",
+        textureId = "rbxassetid://5578710859",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0.15, 0),
+        weldC0 = CFrame.new(0, 0.6, 0),
+        weldC1 = CFrame.new(0, -0.7, 0),
+        fire = {color = Color3.new(1, 1, 1), secondaryColor = Color3.new(0, 0, 0), heat = 8, size = 3}
+    },
+    secondaryPart = {
+        meshId = "http://www.roblox.com/asset/?id=1029012",
+        textureId = "e",
+        scale = Vector3.new(1.1, 1.1, 1.1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, -0.7, 0) * CFrame.Angles(0, 0, 0),
+        weldC1 = CFrame.new(0, 0, 0),
+        vertexColor = Vector3.new(0.18, 0.18, 0.18)
+    }
+},
+    {name = "Black Iron Horns", textureId = "rbxassetid://627529830", meshId = "rbxassetid://627540549", scale = Vector3.new(1.7, 1.7, 1.7), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.26, 0)},
+    {name = "Blood Horns", textureId = "http://www.roblox.com/asset/?id=11935615509", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.92549, 0, 0), secondaryColor = Color3.new(0.545098, 0, 0), heat = 8, size = 3}},
+    {name = "Dark Horns", textureId = "http://www.roblox.com/asset/?id=71494779", meshId = "http://www.roblox.com/asset/?id=71494804", scale = Vector3.new(1.08, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, 0.024728)},
+    {name = "Death Horns", textureId = "http://www.roblox.com/asset/?id=17799303408", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 0, 0), secondaryColor = Color3.new(0.513726, 0, 0), heat = 8, size = 3}},
+    {name = "Disco Horns", textureId = "rbxassetid://129609357728517", meshId = "rbxassetid://90900525707600", scale = Vector3.new(1, 1, 1.000479), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(-0.000063, -0.723119, 0.000565, -1, 0, 0, 0, 1, 0, 0, 0, -1), fire = {color = Color3.new(0.590603, 0.778813, 0.458109), secondaryColor = Color3.new(0.839216, 0.956863, 0.988235), heat = 8, size = 3}},
+    {name = "FrozenHorns1", textureId = "rbxassetid://658646189", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.20392, 0.80784, 0.92549), secondaryColor = Color3.new(0.00784, 0.25098, 0.5451), heat = 8, size = 3}},
+    {name = "Love Horns", textureId = "http://www.roblox.com/asset/?id=16270370472", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.85098, 0.098039, 1), secondaryColor = Color3.new(0.243137, 0, 0.388235), heat = 8, size = 3}},
+    {name = "Lucky Horns", textureId = "rbxassetid://787064803", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 1, 0), secondaryColor = Color3.new(0.545098, 0, 0), heat = 8, size = 3}},
+    {name = "PoisonHorns1", textureId = "rbxassetid://1744057070", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.666667, 0.333333, 1), secondaryColor = Color3.new(0.007843, 0.25098, 0.545098), heat = 8, size = 3}},
+    {name = "Skyforged Horns", textureId = "http://www.roblox.com/asset/?id=104058866743144", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.054902, 0.062745, 0.282353), secondaryColor = Color3.new(0.054902, 0.066667, 0.27451), heat = 8, size = 3}},
+    {name = "The Flaming Horns", textureId = "http://www.roblox.com/asset/?id=215676264", meshId = "rbxassetid://215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0.92549, 0.5451, 0.27451), secondaryColor = Color3.new(0.243137, 0, 0.388235), heat = 8, size = 3}},
+    {name = "White Horns", textureId = "rbxassetid://94261725381944", meshId = "http://www.roblox.com/asset/?id=215680403", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.7, -0.000272), fire = {color = Color3.new(0, 0, 0), secondaryColor = Color3.new(1, 1, 1), heat = 8, size = 3}},
+
+    -- CLASSES/FEDORAS
+    {name = "High Class", textureId = "http://www.roblox.com/asset/?id=1285232", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "High High Class", textureId = "rbxassetid://1016192367", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Higher Class1", textureId = "rbxassetid://612910258", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Luckiest Class", textureId = "rbxassetid://109500384", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Patriotic Class", textureId = "rbxassetid://125815954877269", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Pink High Class", textureId = "http://www.roblox.com/asset/?id=343250808", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Red Fedora", textureId = "http://www.roblox.com/asset/?id=72081397", meshId = "http://www.roblox.com/asset/?id=72081410", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Secret Class", textureId = "rbxassetid://146094369", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Sky Blue Fedora", textureId = "http://www.roblox.com/asset/?id=119886492", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Sky Fedora", textureId = "rbxassetid://493450535", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Skyforged Class", textureId = "http://www.roblox.com/asset/?id=16088501951", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Spooky Class", textureId = "rbxassetid://119897975890773", meshId = "http://www.roblox.com/asset/?id=1285237", scale = Vector3.new(1.1, 1.1, 1.1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+
+    -- VALKYRIES
+    {name = "Blackvalk1", textureId = "rbxassetid://124896442", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {name = "God Valkyrie", textureId = "rbxassetid://1456755237", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {name = "Green Valk", textureId = "rbxassetid://2823861788", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {name = "JJ hat", textureId = "rbxassetid://1402325409", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {name = "STV1", textureId = "rbxassetid://1180408992", meshId = "rbxassetid://1116050388", scale = Vector3.new(2, 2, 2), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+    {name = "Valkyrie1", textureId = "http://www.roblox.com/asset/?id=1365693", meshId = "http://www.roblox.com/asset/?id=1365696", scale = Vector3.new(1, 1, 1.15), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.243376, -0.265763, 1, 0, 0, 0, 0.966936, 0.255019, 0, -0.255019, 0.966936)},
+
+    -- TENTACLES
+    {name = "Mr Tentacles", textureId = "http://www.roblox.com/asset/?id=11144797", meshId = "http://www.roblox.com/asset/?id=11144802", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.7, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+    {name = "Tentacles1", textureId = "http://www.roblox.com/asset/?id=135437303", meshId = "http://www.roblox.com/asset/?id=11144802", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.7, 0), weldC0 = CFrame.new(0, 0.6, 0), weldC1 = CFrame.new(0, 0.6, 0)},
+
+    -- CROWNS/MISC
+    {name = "Golden Star Crown", textureId = "http://www.roblox.com/asset/?id=439919703", meshId = "http://www.roblox.com/asset/?id=439915812", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, -0.075, -0.000272)},
+    {name = "Headless Head", textureId = "http://www.roblox.com/asset/?id=6483249848", meshId = "rbxassetid://6483242269", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0, 0), weldC0 = CFrame.new(0, 0.8, 0), weldC1 = CFrame.new(0.007884, 0.229053, 0.017471, 1, 0, 0, 0, 0.999997, -0.002503, 0, 0.002503, 0.999997), part0 = "UpperTorso"},
+    {name = "Lord of Federation", textureId = "http://www.roblox.com/asset/?id=88878187", meshId = "http://www.roblox.com/asset/?id=88878197", scale = Vector3.new(1, 1, 1), offset = Vector3.new(0, 0.3, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+    {name = "Void Crown", textureId = "http://www.roblox.com/asset/?id=1125479", meshId = "http://www.roblox.com/asset/?id=1125478", scale = Vector3.new(0.65, 0.65, 0.65), offset = Vector3.new(0, -0.22, 0), weldC0 = CFrame.new(0, 0.6, -0.000272), weldC1 = CFrame.new(0, 0, 0.049728)},
+}
+local hatOrder = {}
+
+-- [Rest of the script remains the same...]
+
+local colorSequence = {
+    {222, 223, 159}, {221, 222, 158}, {211, 207, 155}, {190, 176, 148},
+    {157, 127, 138}, {111, 60, 123}, {76, 7, 112}, {78, 14, 110},
+    {84, 32, 106}, {94, 63, 99}, {108, 105, 88}, {127, 161, 75},
+    {125, 157, 75}, {118, 147, 78}, {108, 130, 81}, {94, 105, 87},
+    {76, 74, 93}, {75, 73, 95}, {74, 73, 109}, {72, 71, 134},
+    {69, 69, 172}, {65, 67, 220}, {63, 66, 239}, {64, 67, 238},
+    {74, 75, 236}, {92, 90, 231}, {119, 111, 224}, {154, 139, 215},
+    {168, 151, 212}, {167, 151, 211}, {159, 153, 205}, {138, 159, 191},
+    {104, 168, 166}, {56, 181, 132}, {8, 195, 97}, {8, 194, 97},
+    {10, 184, 100}, {16, 163, 107}, {26, 129, 119}, {38, 84, 134},
+    {48, 48, 147}, {49, 48, 147}, {55, 48, 151}, {69, 50, 161},
+    {89, 53, 175}, {118, 57, 195}, {141, 61, 211}, {140, 61, 210},
+    {138, 61, 208}, {133, 62, 200}, {125, 64, 189}, {114, 66, 172},
+    {102, 69, 155}, {100, 71, 152}, {95, 80, 144}, {85, 95, 131},
+    {72, 116, 111}, {55, 144, 86}, {51, 149, 81}, {54, 145, 85},
+    {69, 132, 100}, {94, 109, 126}, {130, 76, 164}, {177, 34, 212},
+    {187, 25, 223}, {185, 27, 220}, {176, 37, 209}, {159, 54, 186},
+    {134, 80, 154}, {102, 114, 111}, {90, 125, 96}, {90, 124, 96},
+    {91, 124, 105}, {94, 122, 124}, {99, 119, 154}, {106, 115, 194},
+    {111, 112, 227}, {109, 110, 226}, {98, 100, 220}, {79, 81, 210},
+    {51, 54, 194}, {14, 18, 175}, {0, 5, 167}, {1, 5, 166},
+    {16, 7, 161}, {50, 12, 151}, {102, 21, 134}, {173, 32, 112},
+    {231, 41, 93}, {228, 41, 93}, {211, 45, 98}, {176, 53, 107},
+    {123, 66, 121}, {53, 82, 140}, {10, 92, 151}, {10, 91, 150},
+    {12, 88, 143}, {18, 80, 126}, {27, 67, 98}, {40, 51, 63},
+    {54, 31, 22}, {53, 31, 21}, {58, 31, 23}, {74, 31, 28},
+    {100, 31, 36}, {136, 31, 47}, {183, 31, 61}, {182, 31, 61},
+    {176, 33, 64}, {161, 41, 72}, {137, 52, 84}, {103, 68, 102},
+    {68, 85, 120}, {69, 91, 125}, {75, 109, 139}, {83, 138, 162},
+    {95, 180, 194}, {110, 230, 233}
+}
+
+local hatParticles = {
+    ["Death Horns"] = {
+        Texture = "rbxassetid://242223105",
+        Rate = 25,
+        Rotation = NumberRange.new(-180, 180),
+        RotSpeed = NumberRange.new(80, 80),
+        Color = Color3.fromRGB(154, 30, 23)
+    },
+    ["Love Horns"] = {
+        Texture = "rbxassetid://16270383186",
+        Color = Color3.fromRGB(239, 133, 236)
+    }
+}
+
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local configFolder = "HatSelectorConfig"
+local configFile = configFolder.."/config.json"
+local screenGui = nil
+local optionsList = nil
+local mainFrame = nil
+
+local function waitForCharacter()
+    while not player.Character do
+        task.wait()
+    end
+    character = player.Character
+end
+
+local function isGameLoaded()
+    local mainGui = player.PlayerGui:FindFirstChild("MainGui")
+    if not mainGui then return false end
+    local leftPanel = mainGui:FindFirstChild("LeftPanel")
+    if not leftPanel then return false end
+    local shop = leftPanel:FindFirstChild("Shop")
+    if not shop then return false end
+    local lists = shop:FindFirstChild("Lists")
+    if not lists then return false end
+    local cosmeticList = lists:FindFirstChild("CosmeticList")
+    if not cosmeticList then return false end
+    return true
+end
+
+local function deleteConfirmationPanels()
+    pcall(function()
+        local mainGui = player.PlayerGui:FindFirstChild("MainGui")
+        if mainGui then
+            local panels = mainGui:FindFirstChild("Panels")
+            if panels then
+                local confirm1 = panels:FindFirstChild("ConfirmEventPurchase")
+                if confirm1 then confirm1:Destroy() end
+                local confirm2 = panels:FindFirstChild("ConfirmPurchaseYe")
+                if confirm2 then confirm2:Destroy() end
+            end
+        end
+    end)
+end
+
+local function onAccessoryAdded(instance)
+    if instance:IsA("Accessory") then
+        pcall(function() instance:Destroy() end)
+    end
+end
+
+local function setupDeletionConnections()
+    if character then
+        character.DescendantAdded:Connect(onAccessoryAdded)
+        for _, descendant in ipairs(character:GetDescendants()) do
+            if descendant:IsA("Accessory") then
+                pcall(function() descendant:Destroy() end)
+            end
+        end
+    end
+    
+    local playersFolder = workspace:FindFirstChild("Players")
+    if playersFolder then
+        local playerFolder = playersFolder:FindFirstChild(player.Name)
+        if playerFolder then
+            playerFolder.ChildAdded:Connect(function(child)
+                if child.Name == "God Halo" then
+                    task.wait()
+                    pcall(function()
+                        local handle = child:FindFirstChild("Handle")
+                        if handle and handle.Transparency ~= 1 then handle.Transparency = 1 end
+                    end)
+                end
+            end)
+            
+            local godHalo = playerFolder:FindFirstChild("God Halo")
+            if godHalo then
+                pcall(function()
+                    local handle = godHalo:FindFirstChild("Handle")
+                    if handle and handle.Transparency ~= 1 then handle.Transparency = 1 end
+                end)
+            end
+        end
+    end
+end
+
+local function updateButtonIndicator(hatName)
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList and optionsList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
+                    for i, button in ipairs(optionsList:GetChildren()) do
+                        if button:IsA("TextButton") and button.Text:sub(5) == hatName then
+                            if frame.Visible then button.Text = "[X] "..hatName
+                            else button.Text = "[ ] "..hatName end
+                            break
+                        end
+                    end
+                    break
+                end
+            end
+        end
+    end)
+end
+
+local function setCosmeticFrameVisible(hatName, visible)
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
+                    frame.Visible = visible
+                    updateButtonIndicator(hatName)
+                    saveConfig()
+                    break
+                end
+            end
+        end
+    end)
+end
+
+local function toggleFrameVisible(hatName)
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
+                    frame.Visible = not frame.Visible
+                    updateButtonIndicator(hatName)
+                    saveConfig()
+                    break
+                end
+            end
+        end
+    end)
+end
+
+local function updateCosmeticFrameUI(hatName, isEquipped)
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
+                    local nameLabel = frame:FindFirstChild("ItemNameLabel")
+                    if nameLabel and nameLabel:IsA("TextLabel") then
+                        if isEquipped then 
+                            nameLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                        else 
+                            nameLabel.TextColor3 = Color3.fromRGB(170, 255, 0)
+                        end
+                    end
+                    local actionButton = frame:FindFirstChild("TextButton")
+                    if actionButton and actionButton:IsA("TextButton") then
+                        if isEquipped then
+                            actionButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                            actionButton.Text = "TAKE OFF"
+                        else
+                            actionButton.BackgroundColor3 = Color3.fromRGB(170, 255, 0)
+                            actionButton.Text = "WEAR"
+                        end
+                    end
+                    break
+                end
+            end
+        end
+    end)
+end
+
+local function syncUIWithEquippedState()
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList then
+            for _, hatData in ipairs(hats) do
+                local isEquipped = equippedHats[hatData.name] ~= nil
+                if not isEquipped and character then
+                    for _, descendant in ipairs(character:GetDescendants()) do
+                        if descendant:IsA("Part") and descendant.Name == hatData.name then
+                            isEquipped = true
+                            break
+                        end
+                    end
+                end
+                updateCosmeticFrameUI(hatData.name, isEquipped)
+                updateButtonIndicator(hatData.name)
+            end
+        end
+    end)
+end
+
+RunService.RenderStepped:Connect(function()
+    syncUIWithEquippedState()
+end)
+
+local function saveConfig()
+    local configData = {}
+    
+    if character then
+        for _, hatData in ipairs(hats) do
+            local isEquipped = false
+            for _, descendant in ipairs(character:GetDescendants()) do
+                if descendant:IsA("Part") and descendant.Name == hatData.name then
+                    isEquipped = true
+                    break
+                end
+            end
+            
+            local isVisible = false
+            local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+            if cosmeticList then
+                for _, frame in ipairs(cosmeticList:GetChildren()) do
+                    if frame:IsA("Frame") and frame.Name:lower() == hatData.name:lower() then
+                        isVisible = frame.Visible
+                        break
+                    end
+                end
+            end
+            
+            configData[hatData.name] = {equipped = isEquipped, visible = isVisible}
+        end
+    end
+    
+    pcall(function()
+        makefolder(configFolder)
+        writefile(configFile, game:GetService("HttpService"):JSONEncode(configData))
+    end)
+end
+
+local function createParticle(parent, properties)
+    local particleEmitter = Instance.new("ParticleEmitter")
+    
+    particleEmitter.Brightness = properties.Brightness or 1
+    particleEmitter.LightEmission = properties.LightEmission or 0.5
+    particleEmitter.LightInfluence = properties.LightInfluence or 0.5
+    particleEmitter.Orientation = properties.Orientation or Enum.ParticleOrientation.FacingCamera
+    particleEmitter.Texture = properties.Texture or ""
+    particleEmitter.Lifetime = properties.Lifetime or NumberRange.new(0.25, 0.75)
+    particleEmitter.Rate = properties.Rate or 50
+    particleEmitter.Rotation = properties.Rotation or NumberRange.new(-180, 180)
+    particleEmitter.RotSpeed = properties.RotSpeed or NumberRange.new(80, 80)
+    particleEmitter.Speed = properties.Speed or NumberRange.new(5, 5)
+    particleEmitter.SpreadAngle = properties.SpreadAngle or Vector2.new(0, 12)
+    particleEmitter.Shape = properties.Shape or Enum.ParticleEmitterShape.Box
+    
+    local color = properties.Color
+    if color then
+        local colorKeypoints = {
+            ColorSequenceKeypoint.new(0, color),
+            ColorSequenceKeypoint.new(1, color)
+        }
+        particleEmitter.Color = ColorSequence.new(colorKeypoints)
+    else
+        local colorKeypoints = {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+        }
+        particleEmitter.Color = ColorSequence.new(colorKeypoints)
+    end
+    
+    local size = properties.Size
+    if size then
+        particleEmitter.Size = size
+    else
+        local sizeKeypoints = {
+            NumberSequenceKeypoint.new(0, 0.25),
+            NumberSequenceKeypoint.new(1, 0)
+        }
+        particleEmitter.Size = NumberSequence.new(sizeKeypoints)
+    end
+    
+    local transparency = properties.Transparency
+    if transparency then
+        particleEmitter.Transparency = transparency
+    else
+        local transparencyKeypoints = {
+            NumberSequenceKeypoint.new(0, 1),
+            NumberSequenceKeypoint.new(0.586035, 0.45625),
+            NumberSequenceKeypoint.new(1, 0)
+        }
+        particleEmitter.Transparency = NumberSequence.new(transparencyKeypoints)
+    end
+    
+    particleEmitter.Parent = parent
+    particleEmitter.Enabled = true
+    return particleEmitter
+end
+
+local function startParticle(hatPart, hatName)
+    if not hatPart or not hatParticles[hatName] then return end
+    
+    local particleName = hatName .. "Particle"
+    local existingParticle = hatPart:FindFirstChild(particleName)
+    if existingParticle then
+        existingParticle.Enabled = true
+        return
+    end
+    
+    createParticle(hatPart, hatParticles[hatName])
+end
+
+local function stopParticle(hatPart, hatName)
+    if not hatPart then return end
+    
+    local particleName = hatName .. "Particle"
+    local particle = hatPart:FindFirstChild(particleName)
+    if particle then
+        particle.Enabled = false
+        task.delay(1, function()
+            if particle and particle.Parent then
+                particle:Destroy()
+            end
+        end)
+    end
+end
+
+local function animateDiscoFire(fire)
+    if not fire or not fire.Parent then return end
+    
+    local secondaryColor = Color3.fromRGB(214, 244, 252)
+    local colorIndex = 1
+    fire.SecondaryColor = secondaryColor
+    fire.Enabled = true
+    
+    local hatPart = fire.Parent
+    local animatingFlag = Instance.new("BoolValue")
+    animatingFlag.Name = "IsAnimating"
+    animatingFlag.Parent = fire
+    
+    while fire and fire.Parent and hatPart and hatPart.Parent do
+        local targetColor = Color3.fromRGB(colorSequence[colorIndex][1], colorSequence[colorIndex][2], colorSequence[colorIndex][3])
+        local startColor = fire.Color
+        local startTime = tick()
+        
+        while tick() - startTime < 0.1 do
+            if not fire or not fire.Parent or not hatPart.Parent then 
+                fire.Enabled = false
+                if animatingFlag then animatingFlag:Destroy() end
+                return 
+            end
+            local alpha = (tick() - startTime) / 0.1
+            fire.Color = startColor:Lerp(targetColor, alpha)
+            task.wait()
+        end
+        fire.Color = targetColor
+        colorIndex = colorIndex % #colorSequence + 1
+        task.wait(0.1)
+    end
+    
+    if animatingFlag then animatingFlag:Destroy() end
+end
+
+local function startDiscoHornsAnimation(hatPart)
+    if not hatPart then return end
+    
+    for _, child in ipairs(hatPart:GetChildren()) do
+        if child:IsA("Fire") and not child:FindFirstChild("IsAnimating") then
+            coroutine.wrap(function() animateDiscoFire(child) end)()
+            break
+        end
+    end
+end
+
+local function stopDiscoHornsAnimation(hatPart)
+    if not hatPart then return end
+    
+    for _, child in ipairs(hatPart:GetChildren()) do
+        if child:IsA("Fire") then
+            child.Enabled = false
+            local animatingFlag = child:FindFirstChild("IsAnimating")
+            if animatingFlag then animatingFlag:Destroy() end
+            break
+        end
+    end
+end
+
+local function createCloverAttachment(handle)
+    local cloverPart = Instance.new("Part")
+    cloverPart.Name = "Clover"
+    cloverPart.Size = Vector3.new(0.5, 0.5, 0.5)
+    cloverPart.Transparency = 0
+    cloverPart.Anchored = false
+    cloverPart.CanCollide = false
+    cloverPart.CastShadow = true
+    cloverPart.BrickColor = BrickColor.new("Dark green")
+    cloverPart.Material = Enum.Material.Plastic
+    cloverPart.Parent = handle
+    
+    local cloverMesh = Instance.new("SpecialMesh")
+    cloverMesh.MeshId = "rbxassetid://95065740107196"
+    cloverMesh.TextureId = ""
+    cloverMesh.Scale = Vector3.new(1, 1, 1)
+    cloverMesh.Offset = Vector3.new(0, 0, 0)
+    cloverMesh.Parent = cloverPart
+    
+    local cloverWeld = Instance.new("Weld")
+    cloverWeld.Name = "CloverWeld"
+    cloverWeld.Part0 = handle
+    cloverWeld.Part1 = cloverPart
+    cloverWeld.C0 = CFrame.new(0, -0.7, -0.45) * CFrame.Angles(0, math.rad(90), 0)
+    cloverWeld.C1 = CFrame.new(0, 0, 0)
+    cloverWeld.Parent = handle
+    
+    return cloverPart
+end
+
+local function createComplexHat(hatData)
+    if not character or not character.Head then 
+        local startTime = tick()
+        repeat 
+            task.wait()
+            if tick() - startTime > 5 then return nil end
+        until character and character.Head
+    end
+    
+    local success, result = pcall(function()
+        local mainPart = Instance.new("Part")
+        mainPart.Name = hatData.name
+        mainPart.Size = Vector3.new(0.01, 0.01, 0.01)
+        mainPart.Transparency = 0
+        mainPart.Anchored = false
+        mainPart.CanCollide = false
+        mainPart.CastShadow = false
+        mainPart.BrickColor = BrickColor.new("White")
+        mainPart.Material = Enum.Material.Plastic
+        mainPart.Parent = character
+        
+        local mainMesh = Instance.new("SpecialMesh")
+        mainMesh.MeshId = hatData.mainPart.meshId
+        mainMesh.TextureId = hatData.mainPart.textureId
+        mainMesh.Scale = hatData.mainPart.scale
+        mainMesh.Offset = hatData.mainPart.offset or Vector3.new(0, 0, 0)
+        mainMesh.Parent = mainPart
+        
+        if hatData.mainPart.fire then
+            local fire = Instance.new("Fire")
+            if hatData.mainPart.fire.animate then
+                fire.Color = Color3.fromRGB(222, 223, 159)
+                fire.SecondaryColor = Color3.fromRGB(214, 244, 252)
+                fire.Heat = 8
+                fire.Size = 3
+                fire.Enabled = true
+            else
+                fire.Color = hatData.mainPart.fire.color
+                fire.SecondaryColor = hatData.mainPart.fire.secondaryColor
+                fire.Heat = hatData.mainPart.fire.heat
+                fire.Size = hatData.mainPart.fire.size
+                fire.Enabled = true
+            end
+            fire.Parent = mainPart
+        end
+        
+        local mainWeld = Instance.new("Weld")
+        mainWeld.Name = "MainWeld"
+        mainWeld.Part0 = character.Head
+        mainWeld.Part1 = mainPart
+        mainWeld.C0 = hatData.mainPart.weldC0 or CFrame.new(0, 0.5, 0)
+        mainWeld.C1 = hatData.mainPart.weldC1 or CFrame.new(0, 0.6, 0)
+        mainWeld.Parent = character.Head
+        
+        if hatData.cloverPart then
+            createCloverAttachment(mainPart)
+        end
+        
+        if hatData.secondaryPart then
+            local secondaryPart = Instance.new("Part")
+            secondaryPart.Name = "SecondaryPart"
+            secondaryPart.Size = Vector3.new(0.01, 0.01, 0.01)
+            secondaryPart.Transparency = 0
+            secondaryPart.Anchored = false
+            secondaryPart.CanCollide = false
+            secondaryPart.CastShadow = false
+            secondaryPart.BrickColor = BrickColor.new("White")
+            secondaryPart.Material = Enum.Material.Plastic
+            secondaryPart.Parent = mainPart
+            
+            local secondaryMesh = Instance.new("SpecialMesh")
+            secondaryMesh.MeshId = hatData.secondaryPart.meshId
+            secondaryMesh.TextureId = hatData.secondaryPart.textureId
+            secondaryMesh.Scale = hatData.secondaryPart.scale
+            secondaryMesh.Offset = hatData.secondaryPart.offset or Vector3.new(0, 0, 0)
+            secondaryMesh.Parent = secondaryPart
+            
+            if hatData.secondaryPart.vertexColor then
+                pcall(function()
+                    secondaryMesh.VertexColor = hatData.secondaryPart.vertexColor
+                end)
+            end
+            
+            local secondaryWeld = Instance.new("Weld")
+            secondaryWeld.Name = "SecondaryWeld"
+            secondaryWeld.Part0 = mainPart
+            secondaryWeld.Part1 = secondaryPart
+            secondaryWeld.C0 = hatData.secondaryPart.weldC0 or CFrame.new(0, 0, 0)
+            secondaryWeld.C1 = hatData.secondaryPart.weldC1 or CFrame.new(0, 0, 0)
+            secondaryWeld.Parent = mainPart
+        end
+        
+        return mainPart
+    end)
+    
+    if success and result then
+        updateCosmeticFrameUI(hatData.name, true)
+        saveConfig()
+        syncUIWithEquippedState()
+        return result
+    end
+    return nil
+end
+
+local function createStandardHat(hatData)
+    if not character or not character.Head then 
+        local startTime = tick()
+        repeat 
+            task.wait()
+            if tick() - startTime > 5 then return nil end
+        until character and character.Head
+    end
+    
+    local success, hatPart = pcall(function()
+        local hatPart = Instance.new("Part")
+        hatPart.Name = hatData.name
+        hatPart.Size = Vector3.new(0.01, 0.01, 0.01)
+        hatPart.Transparency = 0
+        hatPart.Anchored = false
+        hatPart.CanCollide = false
+        hatPart.CastShadow = false
+        hatPart.BrickColor = BrickColor.new("White")
+        hatPart.Material = Enum.Material.Plastic
+        hatPart.Parent = character
+        local mesh = Instance.new("SpecialMesh")
+        mesh.MeshId = hatData.meshId
+        mesh.TextureId = hatData.textureId
+        mesh.Scale = hatData.scale
+        mesh.Offset = hatData.offset
+        mesh.Parent = hatPart
+        if hatData.fire then
+            local fire = Instance.new("Fire")
+            if hatData.fire.animate then
+                fire.Color = Color3.fromRGB(222, 223, 159)
+                fire.SecondaryColor = Color3.fromRGB(214, 244, 252)
+                fire.Heat = 8
+                fire.Size = 3
+                fire.Enabled = true
+            else
+                fire.Color = hatData.fire.color
+                fire.SecondaryColor = hatData.fire.secondaryColor
+                fire.Heat = hatData.fire.heat
+                fire.Size = hatData.fire.size
+                fire.Enabled = true
+            end
+            fire.Parent = hatPart
+        end
+        local part0 = character:FindFirstChild(hatData.part0 or "Head")
+        if not part0 then part0 = character.Head end
+        local weld = Instance.new("Weld")
+        weld.Name = "HatWeld"
+        weld.Part0 = part0
+        weld.Part1 = hatPart
+        weld.C0 = hatData.weldC0
+        weld.C1 = hatData.weldC1
+        weld.Parent = weld.Part0
+        return hatPart
+    end)
+    if success and hatPart then
+        updateCosmeticFrameUI(hatData.name, true)
+        saveConfig()
+        return hatPart
+    end
+    return nil
+end
+
+local function createHat(hatData)
+    if hatData.mainPart then
+        return createComplexHat(hatData)
+    else
+        return createStandardHat(hatData)
+    end
+end
+
+local function removeOldestHat()
+    if #hatOrder > 0 then
+        local oldestHatName = hatOrder[1]
+        local hatToRemove = equippedHats[oldestHatName]
+        
+        if hatToRemove then
+            if oldestHatName == "Disco Horns" then
+                stopDiscoHornsAnimation(hatToRemove)
+            end
+            
+            if hatParticles[oldestHatName] then
+                stopParticle(hatToRemove, oldestHatName)
+            end
+            
+            hatToRemove:Destroy()
+            equippedHats[oldestHatName] = nil
+            
+            updateCosmeticFrameUI(oldestHatName, false)
+            
+            if oldestHatName == "Headless Head" and character and character.Head then
+                character.Head.Transparency = 0
+                local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
+                if face then face.Transparency = 0 end
+            end
+            
+            table.remove(hatOrder, 1)
+            saveConfig()
+            
+            syncUIWithEquippedState()
+        end
+    end
+end
+
+local function startHatEffects(hatPart, hatName)
+    if hatName == "Disco Horns" then
+        startDiscoHornsAnimation(hatPart)
+    end
+    
+    if hatParticles[hatName] then
+        startParticle(hatPart, hatName)
+    end
+end
+
+local function stopHatEffects(hatPart, hatName)
+    if hatName == "Disco Horns" then
+        stopDiscoHornsAnimation(hatPart)
+    end
+    
+    if hatParticles[hatName] then
+        stopParticle(hatPart, hatName)
+    end
+end
+
+local function toggleHat(hatData)
+    if not character or not character.Head then return end
+    
+    if equippedHats[hatData.name] then
+        local hatToRemove = equippedHats[hatData.name]
+        
+        stopHatEffects(hatToRemove, hatData.name)
+        
+        hatToRemove:Destroy()
+        equippedHats[hatData.name] = nil
+        updateCosmeticFrameUI(hatData.name, false)
+        
+        for i, name in ipairs(hatOrder) do
+            if name == hatData.name then
+                table.remove(hatOrder, i)
+                break
+            end
+        end
+        
+        if hatData.name == "Headless Head" and character.Head then
+            character.Head.Transparency = 0
+            local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
+            if face then face.Transparency = 0 end
+        end
+        saveConfig()
+    else
+        if #hatOrder >= 2 then
+            removeOldestHat()
+        end
+        
+        local hat = createHat(hatData)
+        if hat then
+            equippedHats[hatData.name] = hat
+            table.insert(hatOrder, hatData.name)
+            
+            startHatEffects(hat, hatData.name)
+            
+            if hatData.name == "Headless Head" and character.Head then
+                character.Head.Transparency = 1
+                local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
+                if face then face.Transparency = 1 end
+            end
+        end
+    end
+    
+    syncUIWithEquippedState()
+end
+
+local function setupClickConnections()
+    pcall(function()
+        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        if cosmeticList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") then
+                    for _, hatData in ipairs(hats) do
+                        if frame.Name:lower() == hatData.name:lower() then
+                            local function onClick()
+                                if character and character.Head then toggleHat(hatData) end
+                            end
+                            for _, child in ipairs(frame:GetChildren()) do
+                                if child:IsA("ImageButton") or child:IsA("TextButton") then
+                                    child.MouseButton1Click:Connect(onClick)
+                                elseif child:IsA("TextLabel") then
+                                    child.InputBegan:Connect(function(input)
+                                        if input.UserInputType == Enum.UserInputType.MouseButton1 then onClick() end
+                                    end)
+                                end
+                            end
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+local isSlidOut = false
+local function slideIn()
+    if not mainFrame then return end
+    local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(1, -200, 0, -60)})
+    tween:Play()
+    isSlidOut = true
+end
+
+local function slideOut()
+    if not mainFrame then return end
+    local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Position = UDim2.new(1, 0, 0, -60)})
+    tween:Play()
+    isSlidOut = false
+end
+
+local function createGUI()
+    screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "HatSelectorGui"
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+    screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    mainFrame = Instance.new("Frame")
+    mainFrame.Name = "MainFrame"
+    mainFrame.Size = UDim2.new(0, 200, 0, 15)
+    mainFrame.Position = UDim2.new(1, 0, 0, -60)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    mainFrame.BackgroundTransparency = 0
+    mainFrame.BorderSizePixel = 0
+    mainFrame.Parent = screenGui
+    
+    local dropdownButton = Instance.new("TextButton")
+    dropdownButton.Name = "DropdownButton"
+    dropdownButton.Size = UDim2.new(1, 0, 1, 0)
+    dropdownButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    dropdownButton.BackgroundTransparency = 0
+    dropdownButton.BorderSizePixel = 0
+    dropdownButton.Text = " "
+    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownButton.TextSize = 11
+    dropdownButton.Font = Enum.Font.GothamBold
+    dropdownButton.AutoButtonColor = false
+    dropdownButton.Parent = mainFrame
+    
+    local arrowLabel = Instance.new("TextLabel")
+    arrowLabel.Name = "ArrowLabel"
+    arrowLabel.Size = UDim2.new(0, 15, 1, 0)
+    arrowLabel.Position = UDim2.new(0, 0, 0, 0)
+    arrowLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    arrowLabel.BackgroundTransparency = 1
+    arrowLabel.BorderSizePixel = 0
+    arrowLabel.Text = "▼"
+    arrowLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    arrowLabel.TextSize = 11
+    arrowLabel.Font = Enum.Font.GothamBold
+    arrowLabel.Parent = dropdownButton
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "TextLabel"
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Position = UDim2.new(0, 0, 0, 0)
+    textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.BorderSizePixel = 0
+    textLabel.Text = "Select Hats"
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.TextSize = 11
+    textLabel.Font = Enum.Font.GothamBold
+    textLabel.Parent = dropdownButton
+    
+    local optionsFrame = Instance.new("Frame")
+    optionsFrame.Name = "OptionsFrame"
+    optionsFrame.Size = UDim2.new(1, 0, 0, 0)
+    optionsFrame.Position = UDim2.new(0, 0, 1, 0)
+    optionsFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    optionsFrame.BackgroundTransparency = 0
+    optionsFrame.BorderSizePixel = 0
+    optionsFrame.ClipsDescendants = false
+    optionsFrame.Visible = false
+    optionsFrame.Parent = mainFrame
+    
+    optionsList = Instance.new("ScrollingFrame")
+    optionsList.Name = "OptionsList"
+    optionsList.Size = UDim2.new(1, 0, 0, 0)
+    optionsList.Position = UDim2.new(0, 0, 0, 0)
+    optionsList.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    optionsList.BackgroundTransparency = 0
+    optionsList.BorderSizePixel = 0
+    optionsList.ScrollBarThickness = 6
+    optionsList.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 100)
+    optionsList.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    optionsList.CanvasSize = UDim2.new(0, 0, 0, 0)
+    optionsList.Parent = optionsFrame
+    
+    local listLayout = Instance.new("UIListLayout")
+    listLayout.Padding = UDim.new(0, 1)
+    listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    listLayout.Parent = optionsList
+    
+    dropdownButton.MouseButton1Click:Connect(function()
+        optionsFrame.Visible = not optionsFrame.Visible
+        if optionsFrame.Visible then
+            local totalHeight = math.min((#hats * 19) + 4, 370)
+            optionsList.Size = UDim2.new(1, 0, 0, totalHeight)
+            optionsFrame.Size = UDim2.new(1, 0, 0, totalHeight)
+            arrowLabel.Text = "▲"
+            deleteConfirmationPanels()
+        else
+            optionsList.Size = UDim2.new(1, 0, 0, 0)
+            optionsFrame.Size = UDim2.new(1, 0, 0, 0)
+            arrowLabel.Text = "▼"
+        end
+    end)
+    
+    for i, hatData in ipairs(hats) do
+        local optionButton = Instance.new("TextButton")
+        optionButton.Name = "Option"..i
+        optionButton.Size = UDim2.new(1, 0, 0, 18)
+        optionButton.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        optionButton.BackgroundTransparency = 0
+        optionButton.BorderSizePixel = 0
+        optionButton.Text = "[ ] "..hatData.name
+        optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        optionButton.TextSize = 9
+        optionButton.TextXAlignment = Enum.TextXAlignment.Left
+        optionButton.TextWrapped = true
+        optionButton.Font = Enum.Font.Gotham
+        optionButton.AutoButtonColor = false
+        optionButton.LayoutOrder = i
+        optionButton.Parent = optionsList
+        optionButton.MouseButton1Click:Connect(function()
+            toggleFrameVisible(hatData.name)
+            deleteConfirmationPanels()
+        end)
+    end
+end
+
+local function loadConfig()
+    local success, data = pcall(function() return readfile(configFile) end)
+    if success and data and data ~= "" then
+        local success, configData = pcall(function() return game:GetService("HttpService"):JSONDecode(data) end)
+        if success and type(configData) == "table" then
+            local hatsToCreate = {}
+            for name, data in pairs(configData) do
+                if data.equipped then
+                    table.insert(hatsToCreate, name)
+                end
+                if data.visible then
+                    for i, hatData in ipairs(hats) do
+                        if hatData.name == name then
+                            setCosmeticFrameVisible(hatData.name, true)
+                            break
+                        end
+                    end
+                end
+            end
+            if #hatsToCreate > 0 then
+                for _, name in ipairs(hatsToCreate) do
+                    for i, hatData in ipairs(hats) do
+                        if hatData.name == name then
+                            if #hatOrder >= 2 then
+                                removeOldestHat()
+                            end
+                            local hat = createHat(hatData)
+                            if hat then
+                                equippedHats[hatData.name] = hat
+                                table.insert(hatOrder, hatData.name)
+                                startHatEffects(hat, hatData.name)
+                                
+                                if hatData.name == "Headless Head" and character and character.Head then
+                                    character.Head.Transparency = 1
+                                    local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
+                                    if face then face.Transparency = 1 end
+                                end
+                            end
+                            break
+                        end
+                    end
+                    task.wait()
+                end
+            end
+            syncUIWithEquippedState()
+        end
+    end
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.DPadDown then
+        if isSlidOut then
+            slideOut()
+        else
+            slideIn()
+        end
+    end
+end)
+
+waitForCharacter()
+deleteConfirmationPanels()
+setupDeletionConnections()
+createGUI()
+
+task.spawn(function()
+    while not isGameLoaded() do
+        task.wait()
+    end
+    deleteConfirmationPanels()
+    setupClickConnections()
+    loadConfig()
+end)
+
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    local equippedNames = {}
+    for name, _ in pairs(equippedHats) do table.insert(equippedNames, name) end
+    for name, hat in pairs(equippedHats) do 
+        stopHatEffects(hat, name)
+        hat:Destroy() 
+        equippedHats[name] = nil 
+    end
+    hatOrder = {}
+    
+    if character then
+        character.DescendantAdded:Connect(onAccessoryAdded)
+        for _, descendant in ipairs(character:GetDescendants()) do
+            if descendant:IsA("Accessory") then
+                pcall(function() descendant:Destroy() end)
+            end
+        end
+    end
+    
+    if #equippedNames > 0 then
+        for _, name in ipairs(equippedNames) do
+            for i, hatData in ipairs(hats) do
+                if hatData.name == name then
+                    if #hatOrder >= 2 then
+                        removeOldestHat()
+                    end
+                    local hat = createHat(hatData)
+                    if hat then
+                        equippedHats[hatData.name] = hat
+                        table.insert(hatOrder, hatData.name)
+                        startHatEffects(hat, hatData.name)
+                        if hatData.name == "Headless Head" and character.Head then
+                            character.Head.Transparency = 1
+                            local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
+                            if face then face.Transparency = 1 end
+                        end
+                    end
+                    break
+                end
+            end
+            task.wait()
+        end
+    end
+    
+    syncUIWithEquippedState()
+    
+    if arrowLabel then arrowLabel.Text = "▼" end
+    deleteConfirmationPanels()
+end)
