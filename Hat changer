@@ -1,5 +1,4 @@
 local RunService = game:GetService("RunService")
-
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local character = nil
@@ -344,12 +343,12 @@ local hats = {
         name = "Golden Horns",
         mainPart = {
             meshId = "http://www.roblox.com/asset/?id=215680403",
-            textureId = "rbxassetid://15790956293",
+            textureId = "rbxassetid://215680403",
             scale = Vector3.new(1, 1, 1),
             offset = Vector3.new(0, 0.0, 0),
             weldC0 = CFrame.new(0, 0.6, 0),
             weldC1 = CFrame.new(0, -0.7, 0),
-            vertexColor = Vector3.new(0.5, 0.5, 0.5),
+            vertexColor = Vector3.new(1.0, 0.1, 0.1),
             fire = {
                 color = Color3.new(0.92, 0.6666667, 0),
                 secondaryColor = Color3.new(1, 1, 1),
@@ -1221,6 +1220,12 @@ local function createComplexHat(hatData)
         mainMesh.Offset = hatData.mainPart.offset or Vector3.new(0, 0, 0)
         mainMesh.Parent = mainPart
 
+        if hatData.mainPart.vertexColor then
+            pcall(function()
+                mainMesh.VertexColor = hatData.mainPart.vertexColor
+            end)
+        end
+
         if hatData.mainPart.fire then
             local fire = Instance.new("Fire")
             if hatData.mainPart.fire.animate then
@@ -1761,7 +1766,6 @@ player.CharacterAdded:Connect(function(newCharacter)
     end
 
     syncUIWithEquippedState()
-
     local mainGui = player.PlayerGui:FindFirstChild("HatSelectorGui")
     if mainGui and mainGui:FindFirstChild("MainFrame") then
         local df = mainGui.MainFrame:FindFirstChild("DropdownButton")
