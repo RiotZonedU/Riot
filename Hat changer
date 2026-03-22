@@ -349,8 +349,7 @@ local hats = {
             offset = Vector3.new(0, 0.0, 0),
             weldC0 = CFrame.new(0, 0.6, 0),
             weldC1 = CFrame.new(0, -0.7, 0),
-            vertexColor = Vector3.new(0.5, 0.5, 0.5)
-
+            vertexColor = Vector3.new(0.5, 0.5, 0.5),
             fire = {
                 color = Color3.new(0.92, 0.6666667, 0),
                 secondaryColor = Color3.new(1, 1, 1),
