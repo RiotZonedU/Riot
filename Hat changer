@@ -344,7 +344,7 @@ local hats = {
         name = "Golden Horns",
         mainPart = {
             meshId = "http://www.roblox.com/asset/?id=215680403",
-            textureId = "rbxassetid://75936608463590",
+            textureId = "rbxassetid://15790956293",
             scale = Vector3.new(1, 1, 1),
             offset = Vector3.new(0, 0.0, 0),
             weldC0 = CFrame.new(0, 0.6, 0),
