@@ -1,8 +1,22 @@
-local player = game.Players.LocalPlayer
+local RunService = game:GetService("RunService")
+if not RunService:IsClient() then
+    warn("Hat selector must run as a LocalScript on the client; aborting.")
+    return
+end
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 local character = nil
 local equippedHats = {}
 local hats = {
-    -- GODS
+--[[ $$$$$$\                  $$\           
+    $$  __$$\                 $$ |          
+    $$ /  \__| $$$$$$\   $$$$$$$ | $$$$$$$\ 
+    $$ |$$$$\ $$  __$$\ $$  __$$ |$$  _____|
+    $$ |\_$$ |$$ /  $$ |$$ /  $$ |\$$$$$$\  
+    $$ |  $$ |$$ |  $$ |$$ |  $$ | \____$$\ 
+    \$$$$$$  |\$$$$$$  |\$$$$$$$ |$$$$$$$  |
+    \______/  \______/  \_______|\_______/ ]]
     {
         name = "Astral God",
         textureId = "rbxassetid://162384608",
@@ -208,8 +222,6 @@ local hats = {
         weldC0 = CFrame.new(0, 0.6, -0.000272),
         weldC1 = CFrame.new(0.150024, 0.568672, -0.000275, 0, 0, -1, 0, 1, 0, 1, 0, 0)
     },
-
-    -- DOMINUS
     {
         name = "Dominus Rex1",
         textureId = "http://www.roblox.com/asset/?id=250577405",
@@ -220,7 +232,14 @@ local hats = {
         weldC1 = CFrame.new(0, 0.6, -0.200272)
     },
 
-    -- HORNS
+--[[    $$\   $$\                                         
+        $$ |  $$ |                                        
+        $$ |  $$ | $$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$$\ 
+        $$$$$$$$ |$$  __$$\ $$  __$$\ $$  __$$\ $$  _____|                $$  __$$ |$$ /  $$ |$$ |  \__|$$ |  $$ |\$$$$$$\  
+        $$ |  $$ |$$ |  $$ |$$ |      $$ |  $$ | \____$$\ 
+        $$ |  $$ |\$$$$$$  |$$ |      $$ |  $$ |$$$$$$$  |
+        \__|  \__| \______/ \__|      \__|  \__|\_______/ ]]
+
     {
         name = "Black Horns",
         mainPart = {
@@ -325,6 +344,34 @@ local hats = {
             size = 3
         }
     },
+        {
+        name = "Golden Horns",
+        mainPart = {
+            meshId = "http://www.roblox.com/asset/?id=215680403",
+            textureId = "rbxassetid://75936608463590",
+            scale = Vector3.new(1, 1, 1),
+            offset = Vector3.new(0, 0.0, 0),
+            weldC0 = CFrame.new(0, 0.6, 0),
+            weldC1 = CFrame.new(0, -0.7, 0),
+            vertexColor = Vector3.new(0.5, 0.5, 0.5)
+
+            fire = {
+                color = Color3.new(0.92, 0.6666667, 0),
+                secondaryColor = Color3.new(1, 1, 1),
+                heat = 8,
+                size = 3
+            }
+        },
+        secondaryPart = {
+            meshId = "h",
+            textureId = "e",
+            scale = Vector3.new(0, 0, 0),
+            offset = Vector3.new(0, 0, 0),
+            weldC0 = CFrame.new(0, -0.7, 0) * CFrame.Angles(0, 0, 0),
+            weldC1 = CFrame.new(0, 0, 0),
+            vertexColor = Vector3.new(0.18, 0.18, 0.18)
+        }
+    },
     {
         name = "Love Horns",
         textureId = "http://www.roblox.com/asset/?id=16270370472",
@@ -416,7 +463,16 @@ local hats = {
         }
     },
 
-    -- CLASSES/FEDORAS
+--[[     $$$$$$\  $$\                               
+        $$  __$$\ $$ |                              
+        $$ /  \__|$$ | $$$$$$\   $$$$$$$\  $$$$$$$\ 
+        $$ |      $$ | \____$$\ $$  _____|$$  _____|
+        $$ |      $$ | $$$$$$$ |\$$$$$$\  \$$$$$$\  
+        $$ |  $$\ $$ |$$  __$$ | \____$$\  \____$$\ 
+        \$$$$$$  |$$ |\$$$$$$$ |$$$$$$$  |$$$$$$$  |
+        \______/ \__| \_______|\_______/ \_______/ ]]
+
+
     {
         name = "High Class",
         textureId = "http://www.roblox.com/asset/?id=1285232",
@@ -526,7 +582,14 @@ local hats = {
         weldC1 = CFrame.new(0, 0, 0.049728)
     },
 
-    -- VALKYRIES
+--[[$$\    $$\          $$\ $$\       
+    $$ |   $$ |         $$ |$$ |      
+    $$ |   $$ |$$$$$$\  $$ |$$ |  $$\ 
+    \$$\  $$  |\____$$\ $$ |$$ | $$  |
+     \$$\$$  / $$$$$$$ |$$ |$$$$$$  / 
+      \$$$  / $$  __$$ |$$ |$$  _$$<  
+       \$  /  \$$$$$$$ |$$ |$$ | \$$\ 
+        \_/    \_______|\__|\__|  \__|]]
     {
         name = "Blackvalk1",
         textureId = "rbxassetid://124896442",
@@ -602,7 +665,14 @@ local hats = {
         weldC1 = CFrame.new(0, 0.6, 0)
     },
 
-    -- CROWNS/MISC
+--[[$$\      $$\ $$\                     
+    $$$\    $$$ |\__|                    
+    $$$$\  $$$$ |$$\  $$$$$$$\  $$$$$$$\ 
+    $$\$$\$$ $$ |$$ |$$  _____|$$  _____|
+    $$ \$$$  $$ |$$ |\$$$$$$\  $$ /      
+    $$ |\$  /$$ |$$ | \____$$\ $$ |      
+    $$ | \_/ $$ |$$ |$$$$$$$  |\$$$$$$$\ 
+    \__|     \__|\__|\_______/  \_______|]]
     {
         name = "Golden Star Crown",
         textureId = "http://www.roblox.com/asset/?id=439919703",
@@ -642,8 +712,6 @@ local hats = {
     }
 }
 local hatOrder = {}
-
--- [Rest of the script remains the same...]
 
 local colorSequence = {
     {222, 223, 159}, {221, 222, 158}, {211, 207, 155}, {190, 176, 148},
@@ -694,12 +762,23 @@ local hatParticles = {
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
+
 local configFolder = "HatSelectorConfig"
 local configFile = configFolder.."/config.json"
+
 local screenGui = nil
+
 local optionsList = nil
+
 local mainFrame = nil
+
+local cosmeticListRef = nil
+
+local deletionConnection = nil
+local deletionSetupDone = false
+
+local saveScheduled = false
+local pendingConfigData = nil
 
 local function waitForCharacter()
     while not player.Character do
@@ -720,6 +799,26 @@ local function isGameLoaded()
     local cosmeticList = lists:FindFirstChild("CosmeticList")
     if not cosmeticList then return false end
     return true
+end
+
+local function getCosmeticList()
+    if cosmeticListRef and cosmeticListRef.Parent then return cosmeticListRef end
+    local mainGui = player.PlayerGui:FindFirstChild("MainGui")
+    if mainGui then
+        local leftPanel = mainGui:FindFirstChild("LeftPanel")
+        if leftPanel then
+            local shop = leftPanel:FindFirstChild("Shop")
+            if shop then
+                local lists = shop:FindFirstChild("Lists")
+                if lists then
+                    local cosmeticList = lists:FindFirstChild("CosmeticList")
+                    cosmeticListRef = cosmeticList
+                    return cosmeticListRef
+                end
+            end
+        end
+    end
+    return nil
 end
 
 local function deleteConfirmationPanels()
@@ -744,15 +843,22 @@ local function onAccessoryAdded(instance)
 end
 
 local function setupDeletionConnections()
+    if deletionSetupDone then return end
+    deletionSetupDone = true
+
     if character then
-        character.DescendantAdded:Connect(onAccessoryAdded)
+        if deletionConnection then
+            deletionConnection:Disconnect()
+            deletionConnection = nil
+        end
+        deletionConnection = character.DescendantAdded:Connect(onAccessoryAdded)
         for _, descendant in ipairs(character:GetDescendants()) do
             if descendant:IsA("Accessory") then
                 pcall(function() descendant:Destroy() end)
             end
         end
     end
-    
+
     local playersFolder = workspace:FindFirstChild("Players")
     if playersFolder then
         local playerFolder = playersFolder:FindFirstChild(player.Name)
@@ -766,7 +872,7 @@ local function setupDeletionConnections()
                     end)
                 end
             end)
-            
+
             local godHalo = playerFolder:FindFirstChild("God Halo")
             if godHalo then
                 pcall(function()
@@ -780,7 +886,7 @@ end
 
 local function updateButtonIndicator(hatName)
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList and optionsList then
             for _, frame in ipairs(cosmeticList:GetChildren()) do
                 if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
@@ -800,12 +906,13 @@ end
 
 local function setCosmeticFrameVisible(hatName, visible)
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList then
             for _, frame in ipairs(cosmeticList:GetChildren()) do
                 if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
                     frame.Visible = visible
                     updateButtonIndicator(hatName)
+                    -- schedule save instead of immediate write
                     saveConfig()
                     break
                 end
@@ -816,7 +923,7 @@ end
 
 local function toggleFrameVisible(hatName)
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList then
             for _, frame in ipairs(cosmeticList:GetChildren()) do
                 if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
@@ -832,7 +939,7 @@ end
 
 local function updateCosmeticFrameUI(hatName, isEquipped)
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList then
             for _, frame in ipairs(cosmeticList:GetChildren()) do
                 if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
@@ -863,18 +970,10 @@ end
 
 local function syncUIWithEquippedState()
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList then
             for _, hatData in ipairs(hats) do
                 local isEquipped = equippedHats[hatData.name] ~= nil
-                if not isEquipped and character then
-                    for _, descendant in ipairs(character:GetDescendants()) do
-                        if descendant:IsA("Part") and descendant.Name == hatData.name then
-                            isEquipped = true
-                            break
-                        end
-                    end
-                end
                 updateCosmeticFrameUI(hatData.name, isEquipped)
                 updateButtonIndicator(hatData.name)
             end
@@ -882,47 +981,49 @@ local function syncUIWithEquippedState()
     end)
 end
 
-RunService.RenderStepped:Connect(function()
-    syncUIWithEquippedState()
+task.spawn(function()
+    while true do
+        syncUIWithEquippedState()
+        task.wait(0.25) -- adjust interval as needed
+    end
 end)
+
+local function scheduleSave(configData)
+    pendingConfigData = configData
+    if saveScheduled then return end
+    saveScheduled = true
+    task.delay(0.6, function()
+        pcall(function()
+            makefolder(configFolder)
+            writefile(configFile, game:GetService("HttpService"):JSONEncode(pendingConfigData or {}))
+        end)
+        saveScheduled = false
+        pendingConfigData = nil
+    end)
+end
 
 local function saveConfig()
     local configData = {}
-    
-    if character then
-        for _, hatData in ipairs(hats) do
-            local isEquipped = false
-            for _, descendant in ipairs(character:GetDescendants()) do
-                if descendant:IsA("Part") and descendant.Name == hatData.name then
-                    isEquipped = true
+    for _, hatData in ipairs(hats) do
+        local isEquipped = equippedHats[hatData.name] ~= nil
+        local isVisible = false
+        local cosmeticList = getCosmeticList()
+        if cosmeticList then
+            for _, frame in ipairs(cosmeticList:GetChildren()) do
+                if frame:IsA("Frame") and frame.Name:lower() == hatData.name:lower() then
+                    isVisible = frame.Visible
                     break
                 end
             end
-            
-            local isVisible = false
-            local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
-            if cosmeticList then
-                for _, frame in ipairs(cosmeticList:GetChildren()) do
-                    if frame:IsA("Frame") and frame.Name:lower() == hatData.name:lower() then
-                        isVisible = frame.Visible
-                        break
-                    end
-                end
-            end
-            
-            configData[hatData.name] = {equipped = isEquipped, visible = isVisible}
         end
+        configData[hatData.name] = {equipped = isEquipped, visible = isVisible}
     end
-    
-    pcall(function()
-        makefolder(configFolder)
-        writefile(configFile, game:GetService("HttpService"):JSONEncode(configData))
-    end)
+    scheduleSave(configData)
 end
 
 local function createParticle(parent, properties)
     local particleEmitter = Instance.new("ParticleEmitter")
-    
+
     particleEmitter.Brightness = properties.Brightness or 1
     particleEmitter.LightEmission = properties.LightEmission or 0.5
     particleEmitter.LightInfluence = properties.LightInfluence or 0.5
@@ -935,7 +1036,7 @@ local function createParticle(parent, properties)
     particleEmitter.Speed = properties.Speed or NumberRange.new(5, 5)
     particleEmitter.SpreadAngle = properties.SpreadAngle or Vector2.new(0, 12)
     particleEmitter.Shape = properties.Shape or Enum.ParticleEmitterShape.Box
-    
+
     local color = properties.Color
     if color then
         local colorKeypoints = {
@@ -950,7 +1051,7 @@ local function createParticle(parent, properties)
         }
         particleEmitter.Color = ColorSequence.new(colorKeypoints)
     end
-    
+
     local size = properties.Size
     if size then
         particleEmitter.Size = size
@@ -961,7 +1062,7 @@ local function createParticle(parent, properties)
         }
         particleEmitter.Size = NumberSequence.new(sizeKeypoints)
     end
-    
+
     local transparency = properties.Transparency
     if transparency then
         particleEmitter.Transparency = transparency
@@ -973,7 +1074,7 @@ local function createParticle(parent, properties)
         }
         particleEmitter.Transparency = NumberSequence.new(transparencyKeypoints)
     end
-    
+
     particleEmitter.Parent = parent
     particleEmitter.Enabled = true
     return particleEmitter
@@ -981,20 +1082,20 @@ end
 
 local function startParticle(hatPart, hatName)
     if not hatPart or not hatParticles[hatName] then return end
-    
+
     local particleName = hatName .. "Particle"
     local existingParticle = hatPart:FindFirstChild(particleName)
     if existingParticle then
         existingParticle.Enabled = true
         return
     end
-    
+
     createParticle(hatPart, hatParticles[hatName])
 end
 
 local function stopParticle(hatPart, hatName)
     if not hatPart then return end
-    
+
     local particleName = hatName .. "Particle"
     local particle = hatPart:FindFirstChild(particleName)
     if particle then
@@ -1009,22 +1110,22 @@ end
 
 local function animateDiscoFire(fire)
     if not fire or not fire.Parent then return end
-    
+
     local secondaryColor = Color3.fromRGB(214, 244, 252)
     local colorIndex = 1
     fire.SecondaryColor = secondaryColor
     fire.Enabled = true
-    
+
     local hatPart = fire.Parent
     local animatingFlag = Instance.new("BoolValue")
     animatingFlag.Name = "IsAnimating"
     animatingFlag.Parent = fire
-    
+
     while fire and fire.Parent and hatPart and hatPart.Parent do
         local targetColor = Color3.fromRGB(colorSequence[colorIndex][1], colorSequence[colorIndex][2], colorSequence[colorIndex][3])
         local startColor = fire.Color
         local startTime = tick()
-        
+
         while tick() - startTime < 0.1 do
             if not fire or not fire.Parent or not hatPart.Parent then 
                 fire.Enabled = false
@@ -1039,13 +1140,13 @@ local function animateDiscoFire(fire)
         colorIndex = colorIndex % #colorSequence + 1
         task.wait(0.1)
     end
-    
+
     if animatingFlag then animatingFlag:Destroy() end
 end
 
 local function startDiscoHornsAnimation(hatPart)
     if not hatPart then return end
-    
+
     for _, child in ipairs(hatPart:GetChildren()) do
         if child:IsA("Fire") and not child:FindFirstChild("IsAnimating") then
             coroutine.wrap(function() animateDiscoFire(child) end)()
@@ -1056,7 +1157,7 @@ end
 
 local function stopDiscoHornsAnimation(hatPart)
     if not hatPart then return end
-    
+
     for _, child in ipairs(hatPart:GetChildren()) do
         if child:IsA("Fire") then
             child.Enabled = false
@@ -1078,14 +1179,14 @@ local function createCloverAttachment(handle)
     cloverPart.BrickColor = BrickColor.new("Dark green")
     cloverPart.Material = Enum.Material.Plastic
     cloverPart.Parent = handle
-    
+
     local cloverMesh = Instance.new("SpecialMesh")
     cloverMesh.MeshId = "rbxassetid://95065740107196"
     cloverMesh.TextureId = ""
     cloverMesh.Scale = Vector3.new(1, 1, 1)
     cloverMesh.Offset = Vector3.new(0, 0, 0)
     cloverMesh.Parent = cloverPart
-    
+
     local cloverWeld = Instance.new("Weld")
     cloverWeld.Name = "CloverWeld"
     cloverWeld.Part0 = handle
@@ -1093,7 +1194,7 @@ local function createCloverAttachment(handle)
     cloverWeld.C0 = CFrame.new(0, -0.7, -0.45) * CFrame.Angles(0, math.rad(90), 0)
     cloverWeld.C1 = CFrame.new(0, 0, 0)
     cloverWeld.Parent = handle
-    
+
     return cloverPart
 end
 
@@ -1105,7 +1206,7 @@ local function createComplexHat(hatData)
             if tick() - startTime > 5 then return nil end
         until character and character.Head
     end
-    
+
     local success, result = pcall(function()
         local mainPart = Instance.new("Part")
         mainPart.Name = hatData.name
@@ -1117,14 +1218,14 @@ local function createComplexHat(hatData)
         mainPart.BrickColor = BrickColor.new("White")
         mainPart.Material = Enum.Material.Plastic
         mainPart.Parent = character
-        
+
         local mainMesh = Instance.new("SpecialMesh")
         mainMesh.MeshId = hatData.mainPart.meshId
         mainMesh.TextureId = hatData.mainPart.textureId
         mainMesh.Scale = hatData.mainPart.scale
         mainMesh.Offset = hatData.mainPart.offset or Vector3.new(0, 0, 0)
         mainMesh.Parent = mainPart
-        
+
         if hatData.mainPart.fire then
             local fire = Instance.new("Fire")
             if hatData.mainPart.fire.animate then
@@ -1142,7 +1243,7 @@ local function createComplexHat(hatData)
             end
             fire.Parent = mainPart
         end
-        
+
         local mainWeld = Instance.new("Weld")
         mainWeld.Name = "MainWeld"
         mainWeld.Part0 = character.Head
@@ -1150,11 +1251,11 @@ local function createComplexHat(hatData)
         mainWeld.C0 = hatData.mainPart.weldC0 or CFrame.new(0, 0.5, 0)
         mainWeld.C1 = hatData.mainPart.weldC1 or CFrame.new(0, 0.6, 0)
         mainWeld.Parent = character.Head
-        
+
         if hatData.cloverPart then
             createCloverAttachment(mainPart)
         end
-        
+
         if hatData.secondaryPart then
             local secondaryPart = Instance.new("Part")
             secondaryPart.Name = "SecondaryPart"
@@ -1166,20 +1267,20 @@ local function createComplexHat(hatData)
             secondaryPart.BrickColor = BrickColor.new("White")
             secondaryPart.Material = Enum.Material.Plastic
             secondaryPart.Parent = mainPart
-            
+
             local secondaryMesh = Instance.new("SpecialMesh")
             secondaryMesh.MeshId = hatData.secondaryPart.meshId
             secondaryMesh.TextureId = hatData.secondaryPart.textureId
             secondaryMesh.Scale = hatData.secondaryPart.scale
             secondaryMesh.Offset = hatData.secondaryPart.offset or Vector3.new(0, 0, 0)
             secondaryMesh.Parent = secondaryPart
-            
+
             if hatData.secondaryPart.vertexColor then
                 pcall(function()
                     secondaryMesh.VertexColor = hatData.secondaryPart.vertexColor
                 end)
             end
-            
+
             local secondaryWeld = Instance.new("Weld")
             secondaryWeld.Name = "SecondaryWeld"
             secondaryWeld.Part0 = mainPart
@@ -1188,10 +1289,10 @@ local function createComplexHat(hatData)
             secondaryWeld.C1 = hatData.secondaryPart.weldC1 or CFrame.new(0, 0, 0)
             secondaryWeld.Parent = mainPart
         end
-        
+
         return mainPart
     end)
-    
+
     if success and result then
         updateCosmeticFrameUI(hatData.name, true)
         saveConfig()
@@ -1209,7 +1310,7 @@ local function createStandardHat(hatData)
             if tick() - startTime > 5 then return nil end
         until character and character.Head
     end
-    
+
     local success, hatPart = pcall(function()
         local hatPart = Instance.new("Part")
         hatPart.Name = hatData.name
@@ -1275,30 +1376,30 @@ local function removeOldestHat()
     if #hatOrder > 0 then
         local oldestHatName = hatOrder[1]
         local hatToRemove = equippedHats[oldestHatName]
-        
+
         if hatToRemove then
             if oldestHatName == "Disco Horns" then
                 stopDiscoHornsAnimation(hatToRemove)
             end
-            
+
             if hatParticles[oldestHatName] then
                 stopParticle(hatToRemove, oldestHatName)
             end
-            
+
             hatToRemove:Destroy()
             equippedHats[oldestHatName] = nil
-            
+
             updateCosmeticFrameUI(oldestHatName, false)
-            
+
             if oldestHatName == "Headless Head" and character and character.Head then
                 character.Head.Transparency = 0
                 local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
                 if face then face.Transparency = 0 end
             end
-            
+
             table.remove(hatOrder, 1)
             saveConfig()
-            
+
             syncUIWithEquippedState()
         end
     end
@@ -1308,7 +1409,7 @@ local function startHatEffects(hatPart, hatName)
     if hatName == "Disco Horns" then
         startDiscoHornsAnimation(hatPart)
     end
-    
+
     if hatParticles[hatName] then
         startParticle(hatPart, hatName)
     end
@@ -1318,7 +1419,7 @@ local function stopHatEffects(hatPart, hatName)
     if hatName == "Disco Horns" then
         stopDiscoHornsAnimation(hatPart)
     end
-    
+
     if hatParticles[hatName] then
         stopParticle(hatPart, hatName)
     end
@@ -1326,23 +1427,23 @@ end
 
 local function toggleHat(hatData)
     if not character or not character.Head then return end
-    
+
     if equippedHats[hatData.name] then
         local hatToRemove = equippedHats[hatData.name]
-        
+
         stopHatEffects(hatToRemove, hatData.name)
-        
+
         hatToRemove:Destroy()
         equippedHats[hatData.name] = nil
         updateCosmeticFrameUI(hatData.name, false)
-        
+
         for i, name in ipairs(hatOrder) do
             if name == hatData.name then
                 table.remove(hatOrder, i)
                 break
             end
         end
-        
+
         if hatData.name == "Headless Head" and character.Head then
             character.Head.Transparency = 0
             local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
@@ -1353,28 +1454,29 @@ local function toggleHat(hatData)
         if #hatOrder >= 2 then
             removeOldestHat()
         end
-        
+
         local hat = createHat(hatData)
         if hat then
             equippedHats[hatData.name] = hat
             table.insert(hatOrder, hatData.name)
-            
+
             startHatEffects(hat, hatData.name)
-            
+
             if hatData.name == "Headless Head" and character.Head then
                 character.Head.Transparency = 1
                 local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
                 if face then face.Transparency = 1 end
             end
+            saveConfig()
         end
     end
-    
+
     syncUIWithEquippedState()
 end
 
 local function setupClickConnections()
     pcall(function()
-        local cosmeticList = player.PlayerGui:FindFirstChild("MainGui") and player.PlayerGui.MainGui:FindFirstChild("LeftPanel") and player.PlayerGui.MainGui.LeftPanel:FindFirstChild("Shop") and player.PlayerGui.MainGui.LeftPanel.Shop:FindFirstChild("Lists") and player.PlayerGui.MainGui.LeftPanel.Shop.Lists:FindFirstChild("CosmeticList")
+        local cosmeticList = getCosmeticList()
         if cosmeticList then
             for _, frame in ipairs(cosmeticList:GetChildren()) do
                 if frame:IsA("Frame") then
@@ -1422,7 +1524,7 @@ local function createGUI()
     screenGui.Parent = player:WaitForChild("PlayerGui")
     screenGui.ResetOnSpawn = false
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
+
     mainFrame = Instance.new("Frame")
     mainFrame.Name = "MainFrame"
     mainFrame.Size = UDim2.new(0, 200, 0, 15)
@@ -1431,7 +1533,7 @@ local function createGUI()
     mainFrame.BackgroundTransparency = 0
     mainFrame.BorderSizePixel = 0
     mainFrame.Parent = screenGui
-    
+
     local dropdownButton = Instance.new("TextButton")
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Size = UDim2.new(1, 0, 1, 0)
@@ -1444,7 +1546,7 @@ local function createGUI()
     dropdownButton.Font = Enum.Font.GothamBold
     dropdownButton.AutoButtonColor = false
     dropdownButton.Parent = mainFrame
-    
+
     local arrowLabel = Instance.new("TextLabel")
     arrowLabel.Name = "ArrowLabel"
     arrowLabel.Size = UDim2.new(0, 15, 1, 0)
@@ -1457,7 +1559,7 @@ local function createGUI()
     arrowLabel.TextSize = 11
     arrowLabel.Font = Enum.Font.GothamBold
     arrowLabel.Parent = dropdownButton
-    
+
     local textLabel = Instance.new("TextLabel")
     textLabel.Name = "TextLabel"
     textLabel.Size = UDim2.new(1, 0, 1, 0)
@@ -1470,7 +1572,7 @@ local function createGUI()
     textLabel.TextSize = 11
     textLabel.Font = Enum.Font.GothamBold
     textLabel.Parent = dropdownButton
-    
+
     local optionsFrame = Instance.new("Frame")
     optionsFrame.Name = "OptionsFrame"
     optionsFrame.Size = UDim2.new(1, 0, 0, 0)
@@ -1481,7 +1583,7 @@ local function createGUI()
     optionsFrame.ClipsDescendants = false
     optionsFrame.Visible = false
     optionsFrame.Parent = mainFrame
-    
+
     optionsList = Instance.new("ScrollingFrame")
     optionsList.Name = "OptionsList"
     optionsList.Size = UDim2.new(1, 0, 0, 0)
@@ -1494,13 +1596,13 @@ local function createGUI()
     optionsList.AutomaticCanvasSize = Enum.AutomaticSize.Y
     optionsList.CanvasSize = UDim2.new(0, 0, 0, 0)
     optionsList.Parent = optionsFrame
-    
+
     local listLayout = Instance.new("UIListLayout")
     listLayout.Padding = UDim.new(0, 1)
     listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
     listLayout.Parent = optionsList
-    
+
     dropdownButton.MouseButton1Click:Connect(function()
         optionsFrame.Visible = not optionsFrame.Visible
         if optionsFrame.Visible then
@@ -1515,7 +1617,7 @@ local function createGUI()
             arrowLabel.Text = "▼"
         end
     end)
-    
+
     for i, hatData in ipairs(hats) do
         local optionButton = Instance.new("TextButton")
         optionButton.Name = "Option"..i
@@ -1542,8 +1644,8 @@ end
 local function loadConfig()
     local success, data = pcall(function() return readfile(configFile) end)
     if success and data and data ~= "" then
-        local success, configData = pcall(function() return game:GetService("HttpService"):JSONDecode(data) end)
-        if success and type(configData) == "table" then
+        local success2, configData = pcall(function() return game:GetService("HttpService"):JSONDecode(data) end)
+        if success2 and type(configData) == "table" then
             local hatsToCreate = {}
             for name, data in pairs(configData) do
                 if data.equipped then
@@ -1570,7 +1672,7 @@ local function loadConfig()
                                 equippedHats[hatData.name] = hat
                                 table.insert(hatOrder, hatData.name)
                                 startHatEffects(hat, hatData.name)
-                                
+
                                 if hatData.name == "Headless Head" and character and character.Head then
                                     character.Head.Transparency = 1
                                     local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
@@ -1608,6 +1710,7 @@ task.spawn(function()
     while not isGameLoaded() do
         task.wait()
     end
+    cosmeticListRef = getCosmeticList()
     deleteConfirmationPanels()
     setupClickConnections()
     loadConfig()
@@ -1623,16 +1726,20 @@ player.CharacterAdded:Connect(function(newCharacter)
         equippedHats[name] = nil 
     end
     hatOrder = {}
-    
+
     if character then
-        character.DescendantAdded:Connect(onAccessoryAdded)
+        if deletionConnection then
+            deletionConnection:Disconnect()
+            deletionConnection = nil
+        end
+        deletionConnection = character.DescendantAdded:Connect(onAccessoryAdded)
         for _, descendant in ipairs(character:GetDescendants()) do
             if descendant:IsA("Accessory") then
                 pcall(function() descendant:Destroy() end)
             end
         end
     end
-    
+
     if #equippedNames > 0 then
         for _, name in ipairs(equippedNames) do
             for i, hatData in ipairs(hats) do
@@ -1657,9 +1764,14 @@ player.CharacterAdded:Connect(function(newCharacter)
             task.wait()
         end
     end
-    
+
     syncUIWithEquippedState()
-    
-    if arrowLabel then arrowLabel.Text = "▼" end
+
+    -- reset GUI arrow text if GUI exists
+    local mainGui = player.PlayerGui:FindFirstChild("HatSelectorGui")
+    if mainGui and mainGui:FindFirstChild("MainFrame") then
+        local df = mainGui.MainFrame:FindFirstChild("DropdownButton")
+        if df and df:FindFirstChild("ArrowLabel") then df.ArrowLabel.Text = "▼" end
+    end
     deleteConfirmationPanels()
 end)
