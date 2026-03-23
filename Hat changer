@@ -98,7 +98,7 @@ local hats = {
         name = "Golden Lucky God",
         mainPart = {
             meshId = "http://www.roblox.com/asset/?id=138923368",
-            textureId = "rbxassetid://132072394897632",
+            textureId = "rbxassetid://73493716763383",
             scale = Vector3.new(1.045, 1.045, 1.045),
             offset = Vector3.new(0, 0, 0.4),
             weldC0 = CFrame.new(0, 0.6, -0.200272),
@@ -343,12 +343,12 @@ local hats = {
         name = "Golden Horns",
         mainPart = {
             meshId = "http://www.roblox.com/asset/?id=215680403",
-            textureId = "rbxassetid://75936608463590",
+            textureId = "rbxassetid://215680403",
             scale = Vector3.new(1, 1, 1),
             offset = Vector3.new(0, 0.0, 0),
             weldC0 = CFrame.new(0, 0.6, 0),
             weldC1 = CFrame.new(0, -0.7, 0),
-            vertexColor = Vector3.new(1.0, 1.0, 1.0),
+            vertexColor = Vector3.new(1.0, 0.1, 0.1),
             fire = {
                 color = Color3.new(0.92, 0.6666667, 0),
                 secondaryColor = Color3.new(1, 1, 1),
@@ -437,6 +437,21 @@ local hats = {
         fire = {
             color = Color3.new(0.92549, 0.5451, 0.27451),
             secondaryColor = Color3.new(0.243137, 0, 0.388235),
+            heat = 8,
+            size = 3
+        }
+    },
+    {
+        name = "The Inferno Horns",
+        textureId = "rbxassetid://91742202018836",
+        meshId = "rbxassetid://134391683352912",
+        scale = Vector3.new(1, 1, 1),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, -0.7, -0.000272),
+        fire = {
+            color = Color3.new(0.490, 0.231, 0.020),
+            secondaryColor = Color3.new(1, 1, 1),
             heat = 8,
             size = 3
         }
@@ -906,7 +921,6 @@ local function setCosmeticFrameVisible(hatName, visible)
                 if frame:IsA("Frame") and frame.Name:lower() == hatName:lower() then
                     frame.Visible = visible
                     updateButtonIndicator(hatName)
-                    -- schedule save instead of immediate write
                     saveConfig()
                     break
                 end
@@ -978,7 +992,7 @@ end
 task.spawn(function()
     while true do
         syncUIWithEquippedState()
-        task.wait(0.25) -- adjust interval as needed
+        task.wait(0.25)
     end
 end)
 
@@ -1170,7 +1184,20 @@ local function createCloverAttachment(handle)
     cloverPart.Anchored = false
     cloverPart.CanCollide = false
     cloverPart.CastShadow = true
-    cloverPart.BrickColor = BrickColor.new("Dark green")
+
+    local rawName = ""
+    if handle and handle.Name then rawName = tostring(handle.Name) end
+    local hatName = rawName:lower()
+    hatName = hatName:gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+
+    if hatName:match("golden%s*lucky%s*god") then
+        cloverPart.BrickColor = BrickColor.new("Gold")
+    elseif hatName:match("lucky%s*god") then
+        cloverPart.BrickColor = BrickColor.new("Dark green")
+    else
+        cloverPart.BrickColor = BrickColor.new("Dark green")
+    end
+
     cloverPart.Material = Enum.Material.Plastic
     cloverPart.Parent = handle
 
@@ -1766,6 +1793,7 @@ player.CharacterAdded:Connect(function(newCharacter)
     end
 
     syncUIWithEquippedState()
+
     local mainGui = player.PlayerGui:FindFirstChild("HatSelectorGui")
     if mainGui and mainGui:FindFirstChild("MainFrame") then
         local df = mainGui.MainFrame:FindFirstChild("DropdownButton")
