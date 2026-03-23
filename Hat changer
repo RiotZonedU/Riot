@@ -348,7 +348,7 @@ local hats = {
             offset = Vector3.new(0, 0.0, 0),
             weldC0 = CFrame.new(0, 0.6, 0),
             weldC1 = CFrame.new(0, -0.7, 0),
-            vertexColor = Vector3.new(1.0, 0.1, 0.1),
+            vertexColor = Vector3.new(1, 1, 1),
             fire = {
                 color = Color3.new(0.92, 0.6666667, 0),
                 secondaryColor = Color3.new(1, 1, 1),
@@ -444,7 +444,7 @@ local hats = {
     {
         name = "The Inferno Horns",
         textureId = "rbxassetid://91742202018836",
-        meshId = "rbxassetid://134391683352912",
+        meshId = "http://www.roblox.com/asset/?id=215680403",
         scale = Vector3.new(1, 1, 1),
         offset = Vector3.new(0, 0, 0),
         weldC0 = CFrame.new(0, 0.6, -0.000272),
