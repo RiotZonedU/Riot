@@ -163,6 +163,15 @@ local hats = {
         weldC0 = CFrame.new(0, 0.6, 0),
         weldC1 = CFrame.new(0, 0.6, 0)
     },
+     {
+        name = "Scary God",
+        textureId = "http://www.roblox.com/asset/?id=14824002339",
+        meshId = "http://www.roblox.com/asset/?id=138923368",
+        scale = Vector3.new(1.045, 1.045, 1.045),
+        offset = Vector3.new(0, 0, 0),
+        weldC0 = CFrame.new(0, 0.6, -0.000272),
+        weldC1 = CFrame.new(0, 0.6, -0.200272)
+    },
     {
         name = "Seaside God",
         textureId = "http://www.roblox.com/asset/?id=90973687728029",
