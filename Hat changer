@@ -166,7 +166,7 @@ local hats = {
      {
         name = "Scary God",
         textureId = "http://www.roblox.com/asset/?id=14824002339",
-        meshId = "http://www.roblox.com/asset/?id=138923368",
+        meshId = "http://www.roblox.com/asset/?id=21057410",
         scale = Vector3.new(1.045, 1.045, 1.045),
         offset = Vector3.new(0, 0, 0),
         weldC0 = CFrame.new(0, 0.6, -0.000272),
