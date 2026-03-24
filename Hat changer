@@ -1682,58 +1682,20 @@ local function loadConfig()
     if success and data and data ~= "" then
         local success2, configData = pcall(function() return game:GetService("HttpService"):JSONDecode(data) end)
         if success2 and type(configData) == "table" then
-                    local normMap = {}
-            for k, v in pairs(configData) do
-                if type(k) == "string" then
-                    local nk = k:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
-                    normMap[nk] = v
-                end
-            end
-
-for _, hatData in ipairs(hats) do
-                local nk = hatData.name:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
-                local entry = normMap[nk]
-                if entry and entry.equipped then
-                    if #hatOrder >= 2 then
-                        removeOldestHat()
-                    end
-
-                    local hat = nil
-                    for attempt = 1, 3 do
-                        hat = createHat(hatData)
-                        if hat then break end
-                        task.wait(0.12)
-                    end
-
-                    if hat then
-                        equippedHats[hatData.name] = hat
-                        table.insert(hatOrder, hatData.name)
-                        startHatEffects(hat, hatData.name)
-
-                        if hatData.name == "Headless Head" and character and character.Head then
-                            character.Head.Transparency = 1
-                            local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
-                            if face then face.Transparency = 1 end
-                        end
-                    else
-                        warn("[HatSelector] Failed to create hat from config: "..tostring(hatData.name))
-                    end
-
-                    task.wait(0.05)
-                end
-            end
-
-            syncUIWithEquippedState()
-
             local hatsToCreate = {}
-            for _, hatData in ipairs(hats) do
-                local nk = hatData.name:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
-                local entry = normMap[nk]
-                if entry and entry.equipped then
-                    table.insert(hatsToCreate, hatData.name)
+            for name, data in pairs(configData) do
+                if data.equipped then
+                    table.insert(hatsToCreate, name)
+                end
+                if data.visible then
+                    for i, hatData in ipairs(hats) do
+                        if hatData.name == name then
+                            setCosmeticFrameVisible(hatData.name, true)
+                            break
+                        end
+                    end
                 end
             end
-
             if #hatsToCreate > 0 then
                 for _, name in ipairs(hatsToCreate) do
                     for i, hatData in ipairs(hats) do
