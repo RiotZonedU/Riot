@@ -1682,20 +1682,31 @@ local function loadConfig()
     if success and data and data ~= "" then
         local success2, configData = pcall(function() return game:GetService("HttpService"):JSONDecode(data) end)
         if success2 and type(configData) == "table" then
-            local hatsToCreate = {}
-            for name, data in pairs(configData) do
-                if data.equipped then
-                    table.insert(hatsToCreate, name)
-                end
-                if data.visible then
-                    for i, hatData in ipairs(hats) do
-                        if hatData.name == name then
-                            setCosmeticFrameVisible(hatData.name, true)
-                            break
-                        end
-                    end
+                    local normMap = {}
+            for k, v in pairs(configData) do
+                if type(k) == "string" then
+                    local nk = k:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+                    normMap[nk] = v
                 end
             end
+
+            for _, hatData in ipairs(hats) do
+                local nk = hatData.name:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+                local entry = normMap[nk]
+                if entry and entry.visible then
+                    setCosmeticFrameVisible(hatData.name, true)
+                end
+            end
+
+            local hatsToCreate = {}
+            for _, hatData in ipairs(hats) do
+                local nk = hatData.name:lower():gsub("%(clone%)", ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+                local entry = normMap[nk]
+                if entry and entry.equipped then
+                    table.insert(hatsToCreate, hatData.name)
+                end
+            end
+
             if #hatsToCreate > 0 then
                 for _, name in ipairs(hatsToCreate) do
                     for i, hatData in ipairs(hats) do
