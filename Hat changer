@@ -1,6 +1,7 @@
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
-local player = Players.LocalPlayerlocal character = nil
+local player = Players.LocalPlayer
+local character = nil
 local equippedHats = {}
 local hats = {
 --[[ $$$$$$\                  $$\           
