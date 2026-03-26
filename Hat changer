@@ -480,6 +480,22 @@ local hats = {
             size = 3
         }
     },
+    {
+        name = "??? Horns",
+        mainPart = {
+            meshId = "http://www.roblox.com/asset/?id=215680403",
+            textureId = "rbxassetid://5578710859",
+            scale = Vector3.new(1, 1, 1),
+            offset = Vector3.new(0, 0, 0),
+            weldC0 = CFrame.new(0, 0.6, 0),
+            weldC1 = CFrame.new(0, -0.7, 0),
+            fire = {
+                color = Color3.new(1, 1, 1),
+                secondaryColor = Color3.new(0, 0, 0),
+                heat = 8,
+                size = 3
+            }
+        },
 
 --[[     $$$$$$\  $$\                               
         $$  __$$\ $$ |                              
