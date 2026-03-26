@@ -480,22 +480,6 @@ local hats = {
             size = 3
         }
     },
-    {
-        name = "??? Horns",
-        mainPart = {
-            meshId = "http://www.roblox.com/asset/?id=215680403",
-            textureId = "rbxassetid://5578710859",
-            scale = Vector3.new(1, 1, 1),
-            offset = Vector3.new(0, 0, 0),
-            weldC0 = CFrame.new(0, 0.6, 0),
-            weldC1 = CFrame.new(0, -0.7, 0),
-            fire = {
-                color = Color3.new(1, 1, 1),
-                secondaryColor = Color3.new(0, 0, 0),
-                heat = 8,
-                size = 3
-            }
-        },
 
 --[[     $$$$$$\  $$\                               
         $$  __$$\ $$ |                              
@@ -1033,19 +1017,6 @@ local function scheduleSave(configData)
         saveScheduled = false
         pendingConfigData = nil
     end)
-end
-
--- Safe caller that logs errors and stacktraces for debugging nil-call issues
-local function safeCall(fn, ...)
-    local ok, err = pcall(fn, ...)
-    if not ok then
-        local trace = ""
-        if debug and debug.traceback then
-            trace = "\n"..debug.traceback()
-        end
-        warn("[HatSelector] Error during safeCall: "..tostring(err)..trace)
-    end
-    return ok, err
 end
 
 local function saveConfig()
@@ -1766,19 +1737,19 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-safeCall(waitForCharacter)
-safeCall(deleteConfirmationPanels)
-safeCall(setupDeletionConnections)
-safeCall(createGUI)
+waitForCharacter()
+deleteConfirmationPanels()
+setupDeletionConnections()
+createGUI()
 
 task.spawn(function()
     while not isGameLoaded() do
         task.wait()
     end
     cosmeticListRef = getCosmeticList()
-    safeCall(deleteConfirmationPanels)
-    safeCall(setupClickConnections)
-    safeCall(loadConfig)
+    deleteConfirmationPanels()
+    setupClickConnections()
+    loadConfig()
 end)
 
 player.CharacterAdded:Connect(function(newCharacter)
