@@ -1035,6 +1035,19 @@ local function scheduleSave(configData)
     end)
 end
 
+-- Safe caller that logs errors and stacktraces for debugging nil-call issues
+local function safeCall(fn, ...)
+    local ok, err = pcall(fn, ...)
+    if not ok then
+        local trace = ""
+        if debug and debug.traceback then
+            trace = "\n"..debug.traceback()
+        end
+        warn("[HatSelector] Error during safeCall: "..tostring(err)..trace)
+    end
+    return ok, err
+end
+
 local function saveConfig()
     local configData = {}
     for _, hatData in ipairs(hats) do
@@ -1753,19 +1766,19 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
-waitForCharacter()
-deleteConfirmationPanels()
-setupDeletionConnections()
-createGUI()
+safeCall(waitForCharacter)
+safeCall(deleteConfirmationPanels)
+safeCall(setupDeletionConnections)
+safeCall(createGUI)
 
 task.spawn(function()
     while not isGameLoaded() do
         task.wait()
     end
     cosmeticListRef = getCosmeticList()
-    deleteConfirmationPanels()
-    setupClickConnections()
-    loadConfig()
+    safeCall(deleteConfirmationPanels)
+    safeCall(setupClickConnections)
+    safeCall(loadConfig)
 end)
 
 player.CharacterAdded:Connect(function(newCharacter)
