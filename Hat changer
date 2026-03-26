@@ -1695,6 +1695,9 @@ local function createGUI()
 end
 
 local function loadConfig()
+    if not character or not character.Head then
+        repeat task.wait() until character and character.Head
+    end
     local ok, raw = pcall(function() return readfile(configFile) end)
     if not ok or not raw or raw == "" then return end
 
@@ -1777,8 +1780,6 @@ end)
 
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
-    local equippedNames = {}
-    for name, _ in pairs(equippedHats) do table.insert(equippedNames, name) end
     for name, hat in pairs(equippedHats) do 
         stopHatEffects(hat, name)
         hat:Destroy() 
@@ -1799,32 +1800,7 @@ player.CharacterAdded:Connect(function(newCharacter)
         end
     end
 
-    if #equippedNames > 0 then
-        for _, name in ipairs(equippedNames) do
-            for i, hatData in ipairs(hats) do
-                if hatData.name == name then
-                    if #hatOrder >= 2 then
-                        removeOldestHat()
-                    end
-                    local hat = createHat(hatData)
-                    if hat then
-                        equippedHats[hatData.name] = hat
-                        table.insert(hatOrder, hatData.name)
-                        startHatEffects(hat, hatData.name)
-                        if hatData.name == "Headless Head" and character.Head then
-                            character.Head.Transparency = 1
-                            local face = character.Head:FindFirstChild("face") or character.Head:FindFirstChild("Face")
-                            if face then face.Transparency = 1 end
-                        end
-                    end
-                    break
-                end
-            end
-            task.wait()
-        end
-    end
-
-    syncUIWithEquippedState()
+    loadConfig()
 
     local mainGui = player.PlayerGui:FindFirstChild("HatSelectorGui")
     if mainGui and mainGui:FindFirstChild("MainFrame") then
