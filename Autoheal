@@ -1,163 +1,122 @@
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
+local player = game.Players.LocalPlayer
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local runService = game:GetService("RunService")
+local tweenService = game:GetService("TweenService")
 
-local TRIGGER_HEALTH = 50
-local BURST_FPS = 25
-local BURST_DELAY = 1 / BURST_FPS
-local MAX_HEALTH = 100
-local BURST_COUNT = 2
+local byteNet = replicatedStorage:WaitForChild("ByteNetReliable")
+local notificationsFrame = player.PlayerGui:WaitForChild("MainGui"):WaitForChild("Subordinates"):WaitForChild("Notifications")
+local textTemplate = notificationsFrame:WaitForChild("Templates"):WaitForChild("TextLabel")
 
-local isRunning = false
-local accumulator = 0
-local burstCounter = 0
-local packetsPerBurst = 0
-local currentBurst = 0
-local wasBelowThreshold = false
+local packetId = "1"
 
-local function getLayoutOrder()
-    local success, layoutOrder = pcall(function()
-        local bloodfruitButton = Players.LocalPlayer.PlayerGui.MainGui.RightPanel.Inventory.List.Bloodfruit
-        if bloodfruitButton then
-            return bloodfruitButton.LayoutOrder
+local args = {
+    buffer.fromstring("\000" .. packetId .. "\001\000\000" .. packetId .. "\001\000\000" .. packetId .. "\001\000")
+}
+
+local active = false
+local currentHumanoid = nil
+local renderConnection = nil
+local healthConnection = nil
+local heartbeatConnection = nil
+
+local function createNotification()
+    local existingNotifications = {}
+    for _, child in ipairs(notificationsFrame:GetChildren()) do
+        if child:IsA("TextLabel") and child ~= textTemplate then
+            table.insert(existingNotifications, child)
         end
-        return 1
-    end)
-    
-    if not success then
-        return 1
     end
     
-    return layoutOrder or 1
-end
-
-local function createPacketsBasedOnHealth(health)
-    local healthLost = MAX_HEALTH - health
-    local packetsNeeded = math.floor(healthLost / 3)
-    local extraPacket = 1
-    local totalPackets = math.max(packetsNeeded + extraPacket, 1)
-    
-    local layoutOrder = getLayoutOrder()
-    
-    local packetString = ""
-    for i = 1, totalPackets do
-        packetString = packetString .. "\000." .. string.char(layoutOrder) .. "\000"
+    if #existingNotifications >= 3 then
+        existingNotifications[1]:Destroy()
     end
     
-    return {buffer.fromstring(packetString)}
+    local newNotification = textTemplate:Clone()
+    newNotification.Parent = notificationsFrame
+    newNotification.Visible = true
+    newNotification.Text = "Ate Bloodfruit!"
+    newNotification.TextColor3 = Color3.fromRGB(170, 255, 0)
+    
+    local fadeOut = tweenService:Create(
+        newNotification,
+        TweenInfo.new(2, Enum.EasingStyle.Linear),
+        {TextTransparency = 1, BackgroundTransparency = 1}
+    )
+    
+    fadeOut:Play()
+    fadeOut.Completed:Wait()
+    newNotification:Destroy()
 end
 
-local function fixedUpdate(deltaTime)
-    if not isRunning then return end
+local function fireByteEvent()
+    byteNet:FireServer(unpack(args))
+    createNotification()
+end
+
+local function startFiring()
+    if active then return end
+    active = true
     
-    accumulator += deltaTime
-    
-    if accumulator >= BURST_DELAY then
-        local player = Players.LocalPlayer
-        local character = player.Character
-        
-        if character then
-            local humanoid = character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                local health = humanoid.Health
-                
-                if health >= TRIGGER_HEALTH then
-                    isRunning = false
-                    burstCounter = 0
-                    accumulator = 0
-                    currentBurst = 0
-                    return
-                end
-                
-                local args = createPacketsBasedOnHealth(health)
-                local remote = game:GetService("ReplicatedStorage"):WaitForChild("ByteNetReliable")
-                remote:FireServer(unpack(args))
-                
-                burstCounter = burstCounter + 1
-                accumulator = accumulator - BURST_DELAY
-                
-                if burstCounter >= BURST_COUNT then
-                    isRunning = false
-                    burstCounter = 0
-                    currentBurst = 0
-                end
-            else
-                isRunning = false
-                burstCounter = 0
-                accumulator = 0
-                currentBurst = 0
+    if not renderConnection then
+        renderConnection = runService.RenderStepped:Connect(function()
+            if currentHumanoid and currentHumanoid.Health < 100 and currentHumanoid.Health > 0 then
+                fireByteEvent()
+            elseif currentHumanoid and currentHumanoid.Health >= 100 then
+                stopFiring()
             end
-        else
-            isRunning = false
-            burstCounter = 0
-            accumulator = 0
-            currentBurst = 0
-        end
+        end)
+    end
+    
+    if not heartbeatConnection then
+        heartbeatConnection = runService.Heartbeat:Connect(function()
+            if currentHumanoid and currentHumanoid.Health < 100 and currentHumanoid.Health > 0 then
+                fireByteEvent()
+            elseif currentHumanoid and currentHumanoid.Health >= 100 then
+                stopFiring()
+            end
+        end)
     end
 end
 
-local function checkHealth()
-    local player = Players.LocalPlayer
-    local character = player.Character
-    
-    if not character then return end
-    
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-    
-    local health = humanoid.Health
-    
-    if health < TRIGGER_HEALTH then
-        if not wasBelowThreshold and not isRunning then
-            isRunning = true
-            burstCounter = 0
-            accumulator = 0
-            currentBurst = 0
-            wasBelowThreshold = true
-        end
-    else
-        wasBelowThreshold = false
+local function stopFiring()
+    active = false
+    if renderConnection then
+        renderConnection:Disconnect()
+        renderConnection = nil
+    end
+    if heartbeatConnection then
+        heartbeatConnection:Disconnect()
+        heartbeatConnection = nil
     end
 end
 
-local function toggleSpammer()
-    local player = Players.LocalPlayer
-    local character = player.Character
-    
-    if not character then return end
-    
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-    
-    local health = humanoid.Health
-    
-    if health >= TRIGGER_HEALTH then
-        return
-    end
-    
-    if not isRunning then
-        isRunning = true
-        burstCounter = 0
-        accumulator = 0
-        currentBurst = 0
-        wasBelowThreshold = true
-    else
-        isRunning = false
-        burstCounter = 0
-        accumulator = 0
-        currentBurst = 0
+local function onHealthChanged(health)
+    if health < 50 and not active then
+        startFiring()
+    elseif health >= 100 and active then
+        stopFiring()
     end
 end
 
-RunService.Heartbeat:Connect(fixedUpdate)
-
-RunService.Heartbeat:Connect(function()
-    checkHealth()
-end)
-
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed then return end
-    if input.KeyCode == Enum.KeyCode.DPadDown then
-        toggleSpammer()
+local function setupCharacter(character)
+    if healthConnection then
+        healthConnection:Disconnect()
+        healthConnection = nil
     end
-end)
+    
+    currentHumanoid = character:WaitForChild("Humanoid")
+    
+    healthConnection = currentHumanoid.HealthChanged:Connect(onHealthChanged)
+    
+    if currentHumanoid.Health < 50 then
+        startFiring()
+    elseif currentHumanoid.Health >= 100 then
+        stopFiring()
+    end
+end
+
+player.CharacterAdded:Connect(setupCharacter)
+
+if player.Character then
+    setupCharacter(player.Character)
+end
